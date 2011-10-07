@@ -3,7 +3,8 @@ package com.alag.ci.blog.cluster.impl;
 import java.io.StringWriter;
 import java.util.*;
 
-import com.alag.ci.blog.dataset.impl.BlogDataSetCreatorImpl;
+//import com.alag.ci.blog.dataset.impl.BlogDataSetCreatorImpl;
+import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.cluster.*;
 import com.alag.ci.cluster.hiercluster.HierCluster;
 
@@ -20,6 +21,7 @@ public class HierarchialClusteringImpl implements Clusterer {
         this.allDistance = new HashMap<HierDistance,HierDistance>();
     }
     
+    @Override
     public List<TextCluster> cluster() {
         createInitialClusters();
         while (allDistance.size() > 0) {
@@ -69,7 +71,7 @@ public class HierarchialClusteringImpl implements Clusterer {
         HierCluster cluster = createNewCluster(hd);
         pruneDistances(hd.getC1(), hd.getC2(), sortDist);
         addNewClusterDistances(cluster);
-        if (this.allDistance.size() == 0) {
+        if (this.allDistance.isEmpty()) {
             this.rootCluster = cluster;
         }
     }
@@ -104,7 +106,12 @@ public class HierarchialClusteringImpl implements Clusterer {
             }
         }
     }
+    
+    public HierCluster getRoot(){
+        return rootCluster;
+    }
  
+    @Override
     public String toString() {
         StringWriter sb = new StringWriter();
         sb.append("Num of clusters = " + this.idCount + "\n");
@@ -116,7 +123,7 @@ public class HierarchialClusteringImpl implements Clusterer {
         StringWriter sb = new StringWriter();
         if (cluster != null) {
             sb.append(cluster.toString());
-            String tab = "\t" + append;
+            String tab = "  " + append;
             if (cluster.getChild1() != null) {
                 sb.append("\n" + tab + "C1=" + printClusterDetails(cluster.getChild1(),tab));
             }
@@ -127,12 +134,19 @@ public class HierarchialClusteringImpl implements Clusterer {
         return sb.toString();
     }
     
-    public static final void main(String [] args) throws Exception {
-        DataSetCreator bc = new BlogDataSetCreatorImpl();
-        List<TextDataItem> blogData = bc.createLearningData();
+    public static void main(String [] args) throws Exception {
+        DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317561855701/processed/", null);
+        List<TextDataItem> beList = pt.createLearningData();
+//        DataSetCreator bc = new BlogDataSetCreatorImpl();
+//        List<TextDataItem> blogData = bc.createLearningData();
         Clusterer clusterer = new HierarchialClusteringImpl(
-                blogData);
+                beList);
         clusterer.cluster();
         System.out.println(clusterer);
+    }
+
+    @Override
+    public void setDataSet(List<TextDataItem> textDataSet) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

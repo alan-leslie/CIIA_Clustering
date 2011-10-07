@@ -1,17 +1,22 @@
 package com.alag.ci.blog.cluster.impl;
 
+import com.alag.ci.blog.dataset.impl.CrawlerPage;
 import java.io.StringWriter;
 
 import com.alag.ci.blog.search.RetrievedBlogEntry;
+import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.cluster.hiercluster.HierCluster;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HierClusterImpl extends ClusterImpl implements HierCluster {
+
     private HierCluster child1 = null;
     private HierCluster child2 = null;
     private double similarity;
-    
-    public HierClusterImpl(int clusterId,HierCluster child1,
+
+    public HierClusterImpl(int clusterId, HierCluster child1,
             HierCluster child2, double similarity, TextDataItem dataItem) {
         super(clusterId);
         this.child1 = child1;
@@ -22,30 +27,35 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
         }
     }
 
+    @Override
     public HierCluster getChild1() {
         return child1;
     }
 
+    @Override
     public HierCluster getChild2() {
         return child2;
     }
 
+    @Override
     public double getSimilarity() {
         return similarity;
     }
-    
+
+    @Override
     public double computeSimilarity(HierCluster o) {
         return this.getCenter().dotProduct(o.getCenter());
     }
-    
+
+    @Override
     public String toString() {
         StringWriter sb = new StringWriter();
         String blogDetails = getBlogDetails();
         if (blogDetails != null) {
             sb.append("Id=" + this.getClusterId() + " " + blogDetails);
         } else {
-            sb.append("Id=" + this.getClusterId() + " similarity="+ 
-                this.similarity );
+            sb.append("Id=" + this.getClusterId() + " similarity="
+                    + this.similarity);
         }
         if (this.getChild1() != null) {
             sb.append(" C1=" + this.getChild1().getClusterId());
@@ -55,16 +65,87 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
         }
         return sb.toString();
     }
-    
+
     private String getBlogDetails() {
+        String retVal = null;
         if ((this.getItems() != null) && (this.getItems().size() > 0)) {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
-                RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
-                return blog.getTitle();
+                try {
+                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    return blog.getTitle();
+                } catch (ClassCastException exc) {
+                }
+                try {
+                    CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
+                    return thePage.getTitle();
+                } catch (ClassCastException exc) {
+                }
             }
         }
         return null;
     }
     
+    @Override
+    public String getSource() {
+        String retVal = null;
+        if ((this.getItems() != null) && (this.getItems().size() > 0)) {
+            TextDataItem textDataItem = this.getItems().get(0);
+            if (textDataItem != null) {
+                try {
+                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    return blog.getUrl();
+                } catch (ClassCastException exc) {
+                }
+                try {
+                    CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
+                    return thePage.getURL();
+                } catch (ClassCastException exc) {
+                }
+            }
+        }
+        return null;
+    }
+    
+        @Override
+    public String getTitle() {
+        String retVal = null;
+        if ((this.getItems() != null) && (this.getItems().size() > 0)) {
+            TextDataItem textDataItem = this.getItems().get(0);
+            if (textDataItem != null) {
+                try {
+                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    return blog.getTitle();
+                } catch (ClassCastException exc) {
+                }
+                try {
+                    CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
+                    return thePage.getTitle();
+                } catch (ClassCastException exc) {
+                }
+            }
+        }
+        return null;
+    }
+ 
+    @Override
+    public List<TextCluster> getSubClusters() {
+        List<TextCluster> theChildren = new ArrayList<TextCluster>();
+        TextCluster firstChild = getChild1();
+        if(firstChild != null){
+            theChildren.add(firstChild);
+        }
+        
+        TextCluster secondChild = getChild2();
+        if(secondChild != null){
+            theChildren.add(secondChild);
+        }
+
+        return theChildren;
+    }
+    
+    public List<HierCluster> getChildren(){
+        List<HierCluster> theChildren = new ArrayList<HierCluster>();
+        return theChildren;
+    }
 }
