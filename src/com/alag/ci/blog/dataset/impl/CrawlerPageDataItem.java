@@ -6,6 +6,8 @@ package com.alag.ci.blog.dataset.impl;
 
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.textanalysis.TagMagnitudeVector;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -57,6 +59,15 @@ public class CrawlerPageDataItem implements TextDataItem {
     @Override
     public void setClusterId(Integer clusterId) {
         this.clusterId = clusterId;
+    }
+
+    @Override
+    public Map<String, String> getAttributeMap() {
+        Map<String, String> theAttributes = new HashMap<String, String>();
+        theAttributes.put("Title", thePage.getTitle());
+        theAttributes.put("URL", thePage.getURL());
+        theAttributes.put("Text", thePage.getText());
+        return theAttributes;
     }
 }
 

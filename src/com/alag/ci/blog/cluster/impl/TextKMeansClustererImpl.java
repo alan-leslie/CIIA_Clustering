@@ -2,7 +2,6 @@ package com.alag.ci.blog.cluster.impl;
 
 import java.util.*;
 
-import com.alag.ci.blog.dataset.impl.BlogDataSetCreatorImpl;
 import com.alag.ci.blog.dataset.impl.CrawlerPage;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.cluster.*;
@@ -125,44 +124,8 @@ public class TextKMeansClustererImpl implements Clusterer {
         TextCluster rootCluster = new ClusterImpl(0, pt);
         List<TextDataItem> beList = pt.createLearningData();
         rootCluster.hierCluster(clusterer);
-//        DataSetCreator bc = new BlogDataSetCreatorImpl();
-//        List<TextDataItem> blogData = bc.createLearningData();
-//        TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(
-//                blogData,4);
-//        List<TextCluster> theClusters = clusterer.cluster();
+
         List<TextCluster> theClusters = rootCluster.getSubClusters(); // not really needed
         System.out.println(rootCluster.getSubClusters().toString());
-        // root cluster add subclusters
-        
-        // needs to be recursive
-        
-//        for(TextCluster theCluster: theClusters){
-//            List<TextDataItem> theItems = theCluster.getDataItems();
-//            // maybe need to run this through the IDF again 
-//            // cos if there are some words in this cluster that 
-//            // are in all docs they need to be dropped
-//            
-//            if(theItems.size() > 5){  
-//                List<CrawlerPage> thePages = new ArrayList<CrawlerPage>();
-//                
-//                for(TextDataItem theItem: theItems){
-//                    CrawlerPage thePage = (CrawlerPage)theItem.getData();
-//                    thePages.add(thePage);                   
-//                }
-//
-//                // pupulate from data item getData();
-//            DataSetCreator subPageText = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317050427563/processed/", thePages);
-//            List<TextDataItem> spList = subPageText.createLearningData();
-//
-//            TextKMeansClustererImpl subClusterer = new TextKMeansClustererImpl(
-//                spList,5);
-//            List<TextCluster> theSubClusters = subClusterer.cluster(); 
-//            System.out.println(subClusterer);
-////            theCluster.addSubClusters(theSubClusters);
-//            }
-//        }
-        // need to add this to a dendrogram so that I can display it as a tree
-        
-//        System.out.println(clusterer);
     }
 }

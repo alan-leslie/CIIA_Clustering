@@ -2,8 +2,6 @@ package com.alag.ci.blog.cluster.impl;
 
 import java.util.*;
 
-import com.alag.ci.blog.search.RetrievedBlogEntry;
-import com.alag.ci.blog.dataset.impl.CrawlerPage;
 import com.alag.ci.cluster.*;
 import com.alag.ci.textanalysis.*;
 import com.alag.ci.textanalysis.termvector.impl.TagMagnitudeVectorImpl;
@@ -91,25 +89,24 @@ public class ClusterImpl implements TextCluster {
         //    sb.append("\n" + this.center);
         for (TextDataItem item : items) {
             if (item != null) {
-                boolean typeFound = false;
-                try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) item.getData();
-                    sb.append("\nTitle=").append(blog.getTitle());
-                    sb.append("\nExcerpt=").append(blog.getExcerpt());
-                    typeFound = true;
-                } catch (ClassCastException exc) {
+                Map<String, String> theAttributes = item.getAttributeMap();
+                
+                String theTitle = theAttributes.get("Title");                
+                String theExcerpt = theAttributes.get("Excerpt");
+                String theURL = theAttributes.get("URL");
+                String theText = theAttributes.get("Text");
+                
+                if(theTitle != null){
+                    sb.append("\nTitle=").append(theTitle);                  
                 }
-
-                if (!typeFound) {
-                    try {
-                        CrawlerPage thePage = (CrawlerPage) item.getData();
-                        sb.append("\nTitle=").append(thePage.getTitle());
-                        sb.append("\nURL=").append(thePage.getURL());
-                        typeFound = true;
-                    } catch (ClassCastException exc) {
-                    }
+                
+                if(theExcerpt != null){
+                    sb.append("\nExcerpt").append(theExcerpt);                  
                 }
-
+                
+                if(theURL != null){
+                    sb.append("\nURL=").append(theURL);                  
+                }
             }
         }
 
@@ -133,15 +130,12 @@ public class ClusterImpl implements TextCluster {
         if ((this.getItems() != null) && (this.getItems().size() > 0)) {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
-                try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
-                    return blog.getUrl();
-                } catch (ClassCastException exc) {
-                }
-                try {
-                    CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
-                    return thePage.getURL();
-                } catch (ClassCastException exc) {
+                Map<String, String> theAttributes = textDataItem.getAttributeMap();
+                
+                String theURL = theAttributes.get("URL");
+                
+                if(theURL != null){
+                    retVal = theURL;
                 }
             }
         }
@@ -154,18 +148,16 @@ public class ClusterImpl implements TextCluster {
         if ((this.getItems() != null) && (this.getItems().size() > 0)) {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
-                try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
-                    return blog.getTitle();
-                } catch (ClassCastException exc) {
-                }
-                try {
-                    CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
-                    return thePage.getTitle();
-                } catch (ClassCastException exc) {
+                Map<String, String> theAttributes = textDataItem.getAttributeMap();
+                
+                String theTitle = theAttributes.get("Title");
+                
+                if(theTitle != null){
+                    retVal = theTitle;
                 }
             }
         }
+        
         return null;
     }
 

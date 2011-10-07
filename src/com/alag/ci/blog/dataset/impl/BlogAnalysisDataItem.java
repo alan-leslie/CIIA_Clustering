@@ -3,6 +3,8 @@ package com.alag.ci.blog.dataset.impl;
 import com.alag.ci.blog.search.RetrievedBlogEntry;
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.textanalysis.TagMagnitudeVector;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BlogAnalysisDataItem implements TextDataItem {
     private RetrievedBlogEntry blogEntry = null;
@@ -46,6 +48,15 @@ public class BlogAnalysisDataItem implements TextDataItem {
 
     public void setClusterId(Integer clusterId) {
         this.clusterId = clusterId;
+    }
+
+    @Override
+    public Map<String, String> getAttributeMap() {
+        Map<String, String> theAttributes = new HashMap<String, String>();
+        theAttributes.put("Title", blogEntry.getTitle());
+        theAttributes.put("URL", blogEntry.getUrl());
+        theAttributes.put("Excerpt", blogEntry.getExcerpt());
+        return theAttributes;
     }
 
 }
