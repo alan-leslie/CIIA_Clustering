@@ -1,5 +1,6 @@
 package iweb2.similarity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -27,17 +28,31 @@ public class JaccardCoefficient implements SimilarityMeasure {
         return sim;
     }
     
-    private double similarity(List<String> x, List<String> y) {
-        
+    private double similarity(List<String> x, List<String> y) {       
         if( x.size() == 0 || y.size() == 0 ) {
             return 0.0;
         }
         
-        Set<String> unionXY = new HashSet<String>(x);
-        unionXY.addAll(y);
+        List<String> noNullX = new ArrayList<String>();
+        List<String> noNullY = new ArrayList<String>();
         
-        Set<String> intersectionXY = new HashSet<String>(x);
-        intersectionXY.retainAll(y);
+        for(String theString: x){
+            if(theString != null){
+                noNullX.add(theString);
+            }         
+        }
+        
+        for(String theString: y){
+            if(theString != null){
+                noNullY.add(theString);
+            }         
+        }
+        
+        Set<String> unionXY = new HashSet<String>(noNullX);
+        unionXY.addAll(noNullY);
+        
+        Set<String> intersectionXY = new HashSet<String>(noNullX);
+        intersectionXY.retainAll(noNullY);
 
         return (double) intersectionXY.size() / (double) unionXY.size(); 
     }

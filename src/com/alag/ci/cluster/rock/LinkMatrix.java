@@ -1,9 +1,8 @@
 package com.alag.ci.cluster.rock;
 
-import iweb2.ch4.model.Cluster;
-import iweb2.ch4.model.MultiDimensionalDataPoint;
+import com.alag.ci.cluster.TextCluster;
+import com.alag.ci.cluster.TextDataItem;
 import iweb2.similarity.SimilarityMeasure;
-import iweb2.ch4.utils.ObjectToIndexMapping;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -17,27 +16,27 @@ public class LinkMatrix {
     double[][] pointSimilarityMatrix;
     int[][] pointNeighborMatrix;
     int[][] pointLinkMatrix;
-    private ObjectToIndexMapping<MultiDimensionalDataPoint> objToIndexMapping;
+    private ObjectToIndexMapping<TextDataItem> objToIndexMapping;
+    private int TOP_N_TERMS = 20;
     
     
-    public LinkMatrix(MultiDimensionalDataPoint[] points, SimilarityMeasure pointSim, double th) {
-
+    public LinkMatrix(TextDataItem[] points, SimilarityMeasure pointSim, double th) {
         double[][] similarityMatrix = calculatePointSimilarities(points, pointSim);
         init(points, similarityMatrix, th);
     }
     
-    public LinkMatrix(MultiDimensionalDataPoint[] points, double[][] similarityMatrix, double th) {
+    public LinkMatrix(TextDataItem[] points, double[][] similarityMatrix, double th) {
         init(points, similarityMatrix, th);
     }
 
-    private void init(MultiDimensionalDataPoint[] points, double[][] similarityMatrix, double th) {
+    private void init(TextDataItem[] points, double[][] similarityMatrix, double th) {
     
         this.th = th;
         
-        objToIndexMapping = new ObjectToIndexMapping<MultiDimensionalDataPoint>();
+        objToIndexMapping = new ObjectToIndexMapping<TextDataItem>();
         
-        // Create MultiDimensionalDataPoint <-> Index mapping.
-        for(MultiDimensionalDataPoint point : points) {
+        // Create TextDataItem <-> Index mapping.
+        for(TextDataItem point : points) {
             objToIndexMapping.getIndex(point);
         }
         
@@ -73,7 +72,7 @@ public class LinkMatrix {
     }
     
     
-    public int getLinks(MultiDimensionalDataPoint p1, MultiDimensionalDataPoint p2) {
+    public int getLinks(TextDataItem p1, TextDataItem p2) {
         int i = objToIndexMapping.getIndex(p1);
         int j = objToIndexMapping.getIndex(p2);
         return pointLinkMatrix[i][j];
@@ -89,14 +88,15 @@ public class LinkMatrix {
      * 
      * @return link count between two clusters.
      */
-    public int getLinks(Cluster clusterX, Cluster clusterY) {
-        Set<MultiDimensionalDataPoint> itemsX = clusterX.getElements();
-        Set<MultiDimensionalDataPoint> itemsY = clusterY.getElements();
+
+    public int getLinks(TextCluster clusterX, TextCluster clusterY) {
+        Set<TextDataItem> itemsX = clusterX.getElements();
+        Set<TextDataItem> itemsY = clusterY.getElements();
         
         int linkSum = 0;
         
-        for(MultiDimensionalDataPoint x : itemsX) {
-            for(MultiDimensionalDataPoint y : itemsY) {
+        for(TextDataItem x : itemsX) {
+            for(TextDataItem y : itemsY) {
                 linkSum += getLinks(x, y);
             }
         }
@@ -115,16 +115,16 @@ public class LinkMatrix {
      * Calculates similarity matrix for all points.
      */
     private double[][] calculatePointSimilarities(
-            MultiDimensionalDataPoint[] points, SimilarityMeasure pointSim) {
+            TextDataItem[] points, SimilarityMeasure pointSim) {
         
         int n = points.length;
         double[][] simMatrix = new double[n][n];
         for(int i = 0; i < n; i++) {
-            MultiDimensionalDataPoint itemX = points[i];
-            String[] attributesX = itemX.getTextAttrValues();
+            TextDataItem itemX = points[i];
+            String[] attributesX = itemX.getTags(TOP_N_TERMS);
             for(int j = i + 1; j < n; j++) {
-                MultiDimensionalDataPoint itemY = points[j];
-                String[] attributesY = itemY.getTextAttrValues();
+                TextDataItem itemY = points[j];
+                String[] attributesY = itemY.getTags(TOP_N_TERMS);
                 simMatrix[i][j] = pointSim.similarity(
                         attributesX, attributesY);
                 simMatrix[j][i] = simMatrix[i][j];
@@ -154,7 +154,5 @@ public class LinkMatrix {
         for(int i = 0; i < pointLinkMatrix.length; i++) {
             System.out.println(Arrays.toString(pointLinkMatrix[i]));
         }
-     }
-    
-    
+     }  
 }

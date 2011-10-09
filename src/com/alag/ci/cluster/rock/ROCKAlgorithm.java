@@ -1,8 +1,11 @@
 package com.alag.ci.cluster.rock;
 
-import iweb2.ch4.clustering.hierarchical.Dendrogram;
-import iweb2.ch4.model.Cluster;
-import iweb2.ch4.model.MultiDimensionalDataPoint;
+//import iweb2.ch4.clustering.hierarchical.Dendrogram;
+//import iweb2.ch4.model.Cluster;
+//import iweb2.ch4.model.TextDataItem;
+import com.alag.ci.blog.cluster.impl.ClusterImpl;
+import com.alag.ci.cluster.TextCluster;
+import com.alag.ci.cluster.TextDataItem;
 import iweb2.similarity.JaccardCoefficient;
 import iweb2.similarity.SimilarityMeasure;
 
@@ -11,7 +14,7 @@ import java.util.List;
 
 public class ROCKAlgorithm {
 
-    private MultiDimensionalDataPoint[] points;
+    private TextDataItem[] points;
     private int k;
     private double th;
     
@@ -24,7 +27,7 @@ public class ROCKAlgorithm {
      * @param k desired number of clusters.
      * @param th threshold value to identify neighbors among points.
      */
-    public ROCKAlgorithm(MultiDimensionalDataPoint[] points, int k, double th) {
+    public ROCKAlgorithm(TextDataItem[] points, int k, double th) {
         this.points = points;
         this.k = k;
         this.th = th;
@@ -34,12 +37,11 @@ public class ROCKAlgorithm {
     }
     
     
-    public Dendrogram cluster() {
-        
+    public Dendrogram cluster() {   
         //  Create a new cluster out of every point.
-        List<Cluster> initialClusters = new ArrayList<Cluster>();
+        List<TextCluster> initialClusters = new ArrayList<TextCluster>();
         for(int i = 0, n = points.length; i < n; i++) {
-            Cluster cluster = new Cluster(points[i]);
+            TextCluster cluster = new ClusterImpl(0, points[i]);
             initialClusters.add(cluster);
         }
         double g = Double.POSITIVE_INFINITY;        
@@ -70,11 +72,11 @@ public class ROCKAlgorithm {
     
     public static void main(String[] args) {
         //Define data
-        MultiDimensionalDataPoint[] elements = new MultiDimensionalDataPoint[4];
-        elements[0] = new MultiDimensionalDataPoint("Doc1", new String[] {"book"});
-        elements[1] = new MultiDimensionalDataPoint("Doc2", new String[] {"water", "sun", "sand", "swim"});
-        elements[2] = new MultiDimensionalDataPoint("Doc3", new String[] {"water", "sun", "swim", "read"});
-        elements[3] = new MultiDimensionalDataPoint("Doc4", new String[] {"read", "sand"});
+        TextDataItem[] elements = new TextDataItem[4];
+//        elements[0] = new TextDataItem("Doc1", new String[] {"book"});
+//        elements[1] = new TextDataItem("Doc2", new String[] {"water", "sun", "sand", "swim"});
+//        elements[2] = new TextDataItem("Doc3", new String[] {"water", "sun", "swim", "read"});
+//        elements[3] = new TextDataItem("Doc4", new String[] {"read", "sand"});
         
         int k = 1;
         double th = 0.2;

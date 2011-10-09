@@ -1,18 +1,20 @@
 package com.alag.ci.blog.dataset.impl;
 
-import com.alag.ci.blog.search.RetrievedBlogEntry;
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import com.alag.ci.cluster.TextDataItem;
+import com.alag.ci.textanalysis.TagMagnitude;
 import com.alag.ci.textanalysis.TagMagnitudeVector;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BlogAnalysisDataItem implements TextDataItem {
-    private RetrievedBlogEntry blogEntry = null;
+    private RetrievedDataEntry blogEntry = null;
     private TagMagnitudeVector tagMagnitudeVector = null;
     private Integer clusterId;
     private boolean ciRelated = false;
     
-    public BlogAnalysisDataItem(RetrievedBlogEntry blogEntry,
+    public BlogAnalysisDataItem(RetrievedDataEntry blogEntry,
             TagMagnitudeVector tagMagnitudeVector) {
         this.blogEntry = blogEntry;
         this.tagMagnitudeVector = tagMagnitudeVector;
@@ -26,11 +28,11 @@ public class BlogAnalysisDataItem implements TextDataItem {
         this.ciRelated = ciRelated;
     }
 
-    public Object getData() {
+    public RetrievedDataEntry getData() {
         return this.getBlogEntry();
     }
     
-    public RetrievedBlogEntry getBlogEntry() {
+    public RetrievedDataEntry getBlogEntry() {
         return blogEntry;
     }
 
@@ -59,4 +61,17 @@ public class BlogAnalysisDataItem implements TextDataItem {
         return theAttributes;
     }
 
+    @Override
+    // todo copy from crawler page data item
+    public String[] getTags(int noOfItems) {
+       List<TagMagnitude> tagMagnitudes = tagMagnitudeVector.getTagMagnitudes();
+        String retVal[] = new String[tagMagnitudes.size()];
+        int i = 0;
+        for(TagMagnitude theTM: tagMagnitudes){
+            retVal[i] = theTM.getTag().getStemmedText();
+            ++i;
+        }
+        
+        return retVal;
+    }
 }

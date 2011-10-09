@@ -1,5 +1,6 @@
 package com.alag.ci.blog.dataset.impl;
 
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import java.io.IOException;
 import java.util.*;
 
@@ -20,10 +21,10 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
 
     private TagCache tagCache = null;
     private final String dataDir;
-    private List<CrawlerPage> theData;
+    private List<RetrievedDataEntry> theData;
 
     public PageTextDataSetCreatorImpl(String dataDir,
-            List<CrawlerPage> theData) {
+            List<RetrievedDataEntry> theData) {
         this.tagCache = new TagCacheImpl();
         this.dataDir = dataDir;
         this.theData = theData;
@@ -39,16 +40,12 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
         return getTagMagnitudeVectors(theData);
     }
 
-//    public TagCache getTagCache() {
-//        return tagCache;
-//    }
-
     public Collection<Tag> getAllTags() {
         return this.tagCache.getAllTags();
     }
 
-    private List<CrawlerPage> getData() {
-        List<CrawlerPage> retVal = new ArrayList<CrawlerPage>();
+    private List<RetrievedDataEntry> getData() {
+        List<RetrievedDataEntry> retVal = new ArrayList<RetrievedDataEntry>();
         File dir = new File(dataDir);
 
         String[] children = dir.list();
@@ -77,7 +74,7 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
                         String thePage = thePages[j];
                         try {
                             String txtFileNameWOExt = thePage.substring(0, (thePage.length() - 4));
-                            CrawlerPage newPage = new CrawlerPage(subDirName, txtFileNameWOExt);
+                            RetrievedDataEntry newPage = new CrawlerPage(subDirName, txtFileNameWOExt);
                             retVal.add(newPage);                            
                         } catch (IOException ex) {
                             Logger.getLogger(PageTextDataSetCreatorImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,14 +88,14 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
     }
 
     private List<TextDataItem> getTagMagnitudeVectors(
-            List<CrawlerPage> theData) throws IOException {
+            List<RetrievedDataEntry> theData) throws IOException {
         List<TextDataItem> result = new ArrayList<TextDataItem>();
         InverseDocFreqEstimator freqEstimator =
                 new InverseDocFreqEstimatorImpl(theData.size());
         TextAnalyzer textAnalyzer = new LuceneTextAnalyzer(
                 this.tagCache, freqEstimator);
 
-        for (CrawlerPage thePage : theData) {
+        for (RetrievedDataEntry thePage : theData) {
             String text = thePage.getText();
             TagMagnitudeVector tmv = textAnalyzer.createTagMagnitudeVector(text);
             for (TagMagnitude tm : tmv.getTagMagnitudes()) {
@@ -106,12 +103,12 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
             }
         }
 
-        for (CrawlerPage thePage : theData) {
+        for (RetrievedDataEntry thePage : theData) {
             String text = thePage.getText();
             TagMagnitudeVector tmv = textAnalyzer.createTagMagnitudeVector(text);
                         System.out.println(tmv);
 
-            result.add(getPageTextAnalysisDataItem(thePage, tmv));
+            result.add(getPageTextAnalysisDataItem((CrawlerPage)thePage, tmv));
         }
         return result;
     }

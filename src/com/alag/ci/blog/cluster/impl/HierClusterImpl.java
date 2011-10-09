@@ -3,7 +3,7 @@ package com.alag.ci.blog.cluster.impl;
 import com.alag.ci.blog.dataset.impl.CrawlerPage;
 import java.io.StringWriter;
 
-import com.alag.ci.blog.search.RetrievedBlogEntry;
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.cluster.hiercluster.HierCluster;
@@ -72,7 +72,7 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
                 try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    RetrievedDataEntry blog = (RetrievedDataEntry) textDataItem.getData();
                     return blog.getTitle();
                 } catch (ClassCastException exc) {
                 }
@@ -93,13 +93,13 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
                 try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    RetrievedDataEntry blog = (RetrievedDataEntry) textDataItem.getData();
                     return blog.getUrl();
                 } catch (ClassCastException exc) {
                 }
                 try {
                     CrawlerPage thePage = (CrawlerPage) textDataItem.getData();
-                    return thePage.getURL();
+                    return thePage.getUrl();
                 } catch (ClassCastException exc) {
                 }
             }
@@ -114,7 +114,7 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
                 try {
-                    RetrievedBlogEntry blog = (RetrievedBlogEntry) textDataItem.getData();
+                    RetrievedDataEntry blog = (RetrievedDataEntry) textDataItem.getData();
                     return blog.getTitle();
                 } catch (ClassCastException exc) {
                 }

@@ -1,7 +1,11 @@
 package com.alag.ci.cluster.rock;
 
-import iweb2.ch4.model.Cluster;
+//import iweb2.ch4.model.TextCluster;
 
+import com.alag.ci.blog.cluster.impl.ClusterImpl;
+import com.alag.ci.cluster.DataSetCreator;
+import com.alag.ci.cluster.TextCluster;
+import com.alag.ci.cluster.TextDataItem;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,9 +26,9 @@ public class ROCKClusters {
     private int nextKey;
     
     /*
-     * Provides ID -> Cluster mapping.
+     * Provides ID -> TextCluster mapping.
      */
-    private Map<Integer, Cluster> clusterMap;
+    private Map<Integer, TextCluster> clusterMap;
     
     /*
      * Provides ID -> Similar Clusters mapping.
@@ -43,16 +47,16 @@ public class ROCKClusters {
     private LinkMatrix linkMatrix;
     
     public ROCKClusters(
-            List<Cluster> initialClusters, 
+            List<TextCluster> initialClusters, 
             LinkMatrix linkMatrix, 
             MergeGoodnessMeasure goodnessMeasure) {
         
         this.linkMatrix = linkMatrix;
-        clusterMap = new HashMap<Integer, Cluster>();
+        clusterMap = new HashMap<Integer, TextCluster>();
         nextKey = 0;    
         this.goodnessMeasure = goodnessMeasure;
         
-        for(Cluster c : initialClusters) {
+        for(TextCluster c : initialClusters) {
             addCluster(c);
         }
         calculateClusterSimilarities();
@@ -62,7 +66,7 @@ public class ROCKClusters {
         return clusterMap.size();
     }
     
-    public int addCluster(Cluster c) {
+    public int addCluster(TextCluster c) {
         int key = nextKey;
         clusterMap.put(key, c);
         nextKey++;
@@ -73,14 +77,14 @@ public class ROCKClusters {
         similarClustersMap = new HashMap<Integer, List<SimilarCluster>>();
         for(Integer clusterKey : getAllKeys()) {
             List<SimilarCluster> similarClusters = new LinkedList<SimilarCluster>();
-            Cluster cluster = getCluster(clusterKey);
+            TextCluster cluster = getCluster(clusterKey);
             for(Integer similarClusterKey : getAllKeys()) {
                 if( clusterKey != similarClusterKey ) {
-                    Cluster similarCluster = getCluster(similarClusterKey);
+                    TextCluster similarCluster = getCluster(similarClusterKey);
                     int nLinks = linkMatrix.getLinks(cluster, similarCluster);
                     if( nLinks > 0 ) {
                         double goodness = goodnessMeasure.g(nLinks, 
-                                cluster.size(), similarCluster.size());
+                                cluster.getElements().size(), similarCluster.getElements().size());
                         similarClusters.add(
                                 new SimilarCluster(similarClusterKey, goodness));
                     }
@@ -139,25 +143,30 @@ public class ROCKClusters {
         return bestMergeCandidates;
     }
     
-    public Integer mergeClusters(Integer key1, Integer key2) {
-        
-        Cluster cluster1 = getCluster(key1);
-        Cluster cluster2 = getCluster(key2);
-        Cluster cluster3 = new Cluster(cluster1, cluster2);
+    public Integer mergeClusters(Integer key1, Integer key2) {       
+        TextCluster cluster1 = getCluster(key1);
+        TextCluster cluster2 = getCluster(key2);
+        List<TextDataItem> theItems = cluster1.getDataItems();
+        theItems.addAll(cluster2.getDataItems());
+        // todo - this needs to be a data set creator
+        // otherwise tag magnitudes not calculated correctly
+        DataSetCreator theCreator = null;
+        TextCluster cluster3 = new ClusterImpl(0, theCreator);
         removeCluster(key1);
         removeCluster(key2);
-        Integer key3 = addCluster(cluster3);        
+        Integer key3 = addCluster(cluster3);  
+        cluster3.setClusterId(key3);
 
         calculateClusterSimilarities();
         
         return key3;
     }
     
-    public Cluster removeCluster(Integer key) {
+    public TextCluster removeCluster(Integer key) {
         return clusterMap.remove(key);
     }
     
-    public Cluster getCluster(Integer key) {
+    public TextCluster getCluster(Integer key) {
         return clusterMap.get(key);
     }
     
@@ -165,7 +174,7 @@ public class ROCKClusters {
         return new HashSet<Integer>(clusterMap.keySet());
     }
     
-    public Collection<Cluster> getAllClusters() {
+    public Collection<TextCluster> getAllClusters() {
         return clusterMap.values();
     }
 }

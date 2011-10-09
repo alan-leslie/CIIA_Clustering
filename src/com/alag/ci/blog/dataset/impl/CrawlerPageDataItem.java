@@ -4,9 +4,13 @@
  */
 package com.alag.ci.blog.dataset.impl;
 
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import com.alag.ci.cluster.TextDataItem;
+import com.alag.ci.textanalysis.TagMagnitude;
 import com.alag.ci.textanalysis.TagMagnitudeVector;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +38,7 @@ public class CrawlerPageDataItem implements TextDataItem {
     }
 
     @Override
-    public Object getData() {
+    public RetrievedDataEntry getData() {
         return this.thePage;
     }
     
@@ -65,9 +69,32 @@ public class CrawlerPageDataItem implements TextDataItem {
     public Map<String, String> getAttributeMap() {
         Map<String, String> theAttributes = new HashMap<String, String>();
         theAttributes.put("Title", thePage.getTitle());
-        theAttributes.put("URL", thePage.getURL());
+        theAttributes.put("URL", thePage.getUrl());
         theAttributes.put("Text", thePage.getText());
         return theAttributes;
+    }
+
+    @Override
+    public String[] getTags(int noOfTags) {
+        List<TagMagnitude> tagMagnitudes = tagMagnitudeVector.getTagMagnitudes();
+        Collections.sort(tagMagnitudes);
+      
+        int tagArraySize = noOfTags;
+        if(noOfTags < 1){
+            tagArraySize = tagMagnitudes.size();
+        }
+
+        String retVal[] = new String[tagArraySize];
+        
+        int i = 0;
+        for(TagMagnitude theTM: tagMagnitudes){
+            retVal[i] = theTM.getTag().getStemmedText();
+            ++i;
+        }
+        
+        // anything left over is set to null
+        
+        return retVal;
     }
 }
 

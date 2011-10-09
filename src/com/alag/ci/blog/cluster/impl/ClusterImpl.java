@@ -1,5 +1,7 @@
 package com.alag.ci.blog.cluster.impl;
 
+import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import java.util.*;
 
 import com.alag.ci.cluster.*;
@@ -9,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClusterImpl implements TextCluster {
+
     private static int CLUSTER_NO = 3;
     private static int idCounter = 0;
     private TagMagnitudeVector center = null;
@@ -20,14 +23,14 @@ public class ClusterImpl implements TextCluster {
         this.clusterId = idCounter++;
         this.items = new ArrayList<TextDataItem>();
     }
-    
+
     public ClusterImpl(int clusterId,
             TextDataItem theItem) {
         this.clusterId = idCounter++;
         this.items = new ArrayList<TextDataItem>();
         items.add(theItem);
     }
-    
+
     public ClusterImpl(int clusterId,
             DataSetCreator pt) {
         this.clusterId = clusterId;
@@ -39,6 +42,16 @@ public class ClusterImpl implements TextCluster {
         }
     }
 
+//    public ClusterImpl(int clusterId,
+//            List<TextDataItem> theItems) {
+//        this.clusterId = clusterId;
+//        try {
+//            this.items = theItems;
+//        } catch (Exception ex) {
+//            this.items = new ArrayList<TextDataItem>();
+//            Logger.getLogger(ClusterImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     @Override
     public void computeCenter() {
         if (this.items.isEmpty()) {
@@ -90,22 +103,22 @@ public class ClusterImpl implements TextCluster {
         for (TextDataItem item : items) {
             if (item != null) {
                 Map<String, String> theAttributes = item.getAttributeMap();
-                
-                String theTitle = theAttributes.get("Title");                
+
+                String theTitle = theAttributes.get("Title");
                 String theExcerpt = theAttributes.get("Excerpt");
                 String theURL = theAttributes.get("URL");
                 String theText = theAttributes.get("Text");
-                
-                if(theTitle != null){
-                    sb.append("\nTitle=").append(theTitle);                  
+
+                if (theTitle != null) {
+                    sb.append("\nTitle=").append(theTitle);
                 }
-                
-                if(theExcerpt != null){
-                    sb.append("\nExcerpt").append(theExcerpt);                  
+
+                if (theExcerpt != null) {
+                    sb.append("\nExcerpt").append(theExcerpt);
                 }
-                
-                if(theURL != null){
-                    sb.append("\nURL=").append(theURL);                  
+
+                if (theURL != null) {
+                    sb.append("\nURL=").append(theURL);
                 }
             }
         }
@@ -131,10 +144,10 @@ public class ClusterImpl implements TextCluster {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
                 Map<String, String> theAttributes = textDataItem.getAttributeMap();
-                
+
                 String theURL = theAttributes.get("URL");
-                
-                if(theURL != null){
+
+                if (theURL != null) {
                     retVal = theURL;
                 }
             }
@@ -149,39 +162,54 @@ public class ClusterImpl implements TextCluster {
             TextDataItem textDataItem = this.getItems().get(0);
             if (textDataItem != null) {
                 Map<String, String> theAttributes = textDataItem.getAttributeMap();
-                
+
                 String theTitle = theAttributes.get("Title");
-                
-                if(theTitle != null){
+
+                if (theTitle != null) {
                     retVal = theTitle;
                 }
             }
         }
-        
+
         return null;
     }
 
     @Override
+    // todo - need to make sure that the tag magnitudes 
+    // for the sub clusters are calcuated
     public void hierCluster(Clusterer theClusterer) {
         if (theClusterer != null) {
+// 
+            List<RetrievedDataEntry> theData = new ArrayList<RetrievedDataEntry>();
+            for (TextDataItem theItem : items) {
+                theData.add(theItem.getData());
+            }
+            DataSetCreator subPageText = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317050427563/processed/", theData);
+            try {
+                List<TextDataItem> spList = subPageText.createLearningData();
+            } catch (Exception ex) {
+                Logger.getLogger(ClusterImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             if (this.items != null) {
-                theClusterer.setDataSet(this.items);
+
 
                 if (this.items.size() > CLUSTER_NO) {
+                    theClusterer.setDataSet(this.items);
                     subClusters = theClusterer.cluster();
-                    
-                    for(TextCluster theSubCluster: subClusters){
+
+                    for (TextCluster theSubCluster : subClusters) {
                         theSubCluster.hierCluster(theClusterer);
                     }
-                    
+
                     int clustSize = subClusters.size();
                     int dummy = 0;
-                                                        
+
                     // todo for each of the sub clusters 
                     // cluster again
                 } else {
                     subClusters = new ArrayList<TextCluster>();
-                    for(TextDataItem theItem: items){
+                    for (TextDataItem theItem : items) {
                         // todo - get the correct id
                         TextCluster theSubCluster = new ClusterImpl(1, theItem);
                         boolean add = subClusters.add(theSubCluster);
@@ -194,5 +222,31 @@ public class ClusterImpl implements TextCluster {
     @Override
     public List<TextCluster> getSubClusters() {
         return subClusters;
+    }
+
+    @Override
+    public Set<TextDataItem> getElements() {
+        Set<TextDataItem> retVal = new HashSet<TextDataItem>();
+
+        if (items != null) {
+            retVal.addAll(items);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public void setClusterId(int newId) {
+        clusterId = newId;
+    }
+
+    @Override
+    public TextCluster copy() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getElementsAsString() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

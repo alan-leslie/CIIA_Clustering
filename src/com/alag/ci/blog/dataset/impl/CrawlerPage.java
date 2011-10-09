@@ -4,15 +4,17 @@
  */
 package com.alag.ci.blog.dataset.impl;
 
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  *
  * @author al
  */
-public class CrawlerPage {
+public class CrawlerPage implements RetrievedDataEntry {
     private String dirName;
     private String fileName;
     private String theText = "";
@@ -65,15 +67,18 @@ public class CrawlerPage {
         }        
     }
     
+    @Override
     public String getText(){
         return theText;
     }
     
+    @Override
     public String getTitle(){
         return theTitle;
     }
     
-    public String getURL(){
+    @Override
+    public String getUrl(){
         return theURL;
     }
 
@@ -104,6 +109,31 @@ public class CrawlerPage {
         CrawlerPage thePage = new CrawlerPage("/home/al/lasers/crawl-1317050427563/processed/3/", "1");
 
         System.out.println(thePage.getTitle());      
-        System.out.println(thePage.getURL());  
+        System.out.println(thePage.getUrl());  
+    }
+
+    @Override
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getExcerpt() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getAuthor() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Date getLastUpdateTime() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Date getCreationTime() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
