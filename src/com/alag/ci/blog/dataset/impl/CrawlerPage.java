@@ -114,26 +114,28 @@ public class CrawlerPage implements RetrievedDataEntry {
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getTitle();
     }
 
     @Override
     public String getExcerpt() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getText();
     }
 
     @Override
     public String getAuthor() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "";
     }
 
     @Override
     public Date getLastUpdateTime() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Date retVal = new Date();
+        return retVal;
     }
 
     @Override
     public Date getCreationTime() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Date retVal = new Date();
+        return retVal;
     }
 }

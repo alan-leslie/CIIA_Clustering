@@ -146,6 +146,6 @@ public class HierarchialClusteringImpl implements Clusterer {
 
     @Override
     public void setDataSet(List<TextDataItem> textDataSet) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.textDataSet = textDataSet;
     }
 }

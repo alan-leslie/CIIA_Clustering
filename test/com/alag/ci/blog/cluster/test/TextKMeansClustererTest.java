@@ -59,5 +59,7 @@ public class TextKMeansClustererTest {
             System.out.println(theCluster.toString());
             ++i;
         }
+        
+        // todo - add assertions
     }
 }

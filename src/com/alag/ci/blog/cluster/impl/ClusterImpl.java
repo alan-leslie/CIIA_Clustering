@@ -242,11 +242,32 @@ public class ClusterImpl implements TextCluster {
 
     @Override
     public TextCluster copy() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ClusterImpl copy = new ClusterImpl(clusterId);
+        copy.setCenter(getCenter());
+        copy.setItems(getItems());
+        copy.setSubClusters(getSubClusters());
+    
+        return copy;
     }
 
     @Override
     public String getElementsAsString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       StringBuffer buf = new StringBuffer();
+        for(TextDataItem e : items) {
+            if( buf.length() > 0 ) {
+                buf.append(",\n");
+            }
+            buf.append(e.getTags(50));
+        }
+
+        return "{" + buf.toString() + "}";
+    }
+
+    private void setItems(List<TextDataItem> items) {
+        this.items = items;
+    }
+
+    private void setSubClusters(List<TextCluster> subClusters) {
+        this.subClusters = subClusters;
     }
 }
