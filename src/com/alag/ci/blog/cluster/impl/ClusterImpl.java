@@ -182,11 +182,8 @@ public class ClusterImpl implements TextCluster {
     }
 
     @Override
-    // todo - need to make sure that the tag magnitudes 
-    // for the sub clusters are calcuated
     public void hierCluster(Clusterer theClusterer) {
         if (theClusterer != null) {
-// 
             List<RetrievedDataEntry> theData = new ArrayList<RetrievedDataEntry>();
             for (TextDataItem theItem : items) {
                 theData.add(theItem.getData());
@@ -208,17 +205,10 @@ public class ClusterImpl implements TextCluster {
                     for (TextCluster theSubCluster : subClusters) {
                         theSubCluster.hierCluster(theClusterer);
                     }
-
-                    int clustSize = subClusters.size();
-                    int dummy = 0;
-
-                    // todo for each of the sub clusters 
-                    // cluster again
                 } else {
                     subClusters = new ArrayList<TextCluster>();
                     for (TextDataItem theItem : items) {
-                        // todo - get the correct id
-                        TextCluster theSubCluster = new ClusterImpl(1, theItem);
+                        TextCluster theSubCluster = new ClusterImpl(0, theItem);
                         boolean add = subClusters.add(theSubCluster);
                     }
                 }

@@ -62,7 +62,6 @@ public class BlogAnalysisDataItem implements TextDataItem {
     }
 
     @Override
-    // todo copy from crawler page data item
     public String[] getTags(int noOfItems) {
        List<TagMagnitude> tagMagnitudes = tagMagnitudeVector.getTagMagnitudes();
         String retVal[] = new String[tagMagnitudes.size()];
