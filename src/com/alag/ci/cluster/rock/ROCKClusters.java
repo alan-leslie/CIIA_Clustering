@@ -3,6 +3,8 @@ package com.alag.ci.cluster.rock;
 //import iweb2.ch4.model.TextCluster;
 
 import com.alag.ci.blog.cluster.impl.ClusterImpl;
+import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
+import com.alag.ci.blog.search.RetrievedDataEntry;
 import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
@@ -119,6 +121,7 @@ public class ROCKClusters {
     
     /**
      * Finds a pair of cluster indexes with the best goodness measure.
+     * @return 
      */
     public List<Integer> findBestMergeCandidates() {
         Integer bestKey = null;
@@ -148,9 +151,15 @@ public class ROCKClusters {
         TextCluster cluster2 = getCluster(key2);
         List<TextDataItem> theItems = cluster1.getDataItems();
         theItems.addAll(cluster2.getDataItems());
-        // todo - this needs to be a data set creator
-        // otherwise tag magnitudes not calculated correctly
-        DataSetCreator theCreator = null;
+
+        String mergedTitle = cluster1.getTitle() + "-" + cluster2.getTitle();
+        List<RetrievedDataEntry> theData = new ArrayList<RetrievedDataEntry>();
+        
+        for(TextDataItem theItem: theItems){
+            theData.add(theItem.getData());           
+        }
+        
+        DataSetCreator theCreator = new PageTextDataSetCreatorImpl(mergedTitle, theData);
         TextCluster cluster3 = new ClusterImpl(0, theCreator);
         removeCluster(key1);
         removeCluster(key2);

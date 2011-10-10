@@ -25,9 +25,9 @@ public class LinkMatrix {
         init(points, similarityMatrix, th);
     }
     
-    public LinkMatrix(TextDataItem[] points, double[][] similarityMatrix, double th) {
-        init(points, similarityMatrix, th);
-    }
+//    public LinkMatrix(TextDataItem[] points, double[][] similarityMatrix, double th) {
+//        init(points, similarityMatrix, th);
+//    }
 
     private void init(TextDataItem[] points, double[][] similarityMatrix, double th) {
     

@@ -108,14 +108,14 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
             TagMagnitudeVector tmv = textAnalyzer.createTagMagnitudeVector(text);
                         System.out.println(tmv);
 
-            result.add(getPageTextAnalysisDataItem((CrawlerPage)thePage, tmv));
+            result.add(getPageTextAnalysisDataItem((RetrievedDataEntry)thePage, tmv));
         }
         return result;
     }
 
-    private CrawlerPageDataItem getPageTextAnalysisDataItem(CrawlerPage thePage,
+    private DataEntryDataItem getPageTextAnalysisDataItem(RetrievedDataEntry thePage,
             TagMagnitudeVector tmv) {
-        return new CrawlerPageDataItem(thePage, tmv);
+        return new DataEntryDataItem(thePage, tmv);
     }
 
     public static void main(String[] args) throws Exception {

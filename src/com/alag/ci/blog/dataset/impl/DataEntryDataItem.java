@@ -17,16 +17,38 @@ import java.util.Map;
  *
  * @author al
  */
-public class CrawlerPageDataItem implements TextDataItem {
-    private CrawlerPage thePage = null;
+public class DataEntryDataItem implements TextDataItem {
+    private RetrievedDataEntry thePage = null;
     private TagMagnitudeVector tagMagnitudeVector = null;
     private Integer clusterId;
     private boolean ciRelated = false;
     
-    CrawlerPageDataItem(CrawlerPage newPage,
+    DataEntryDataItem(RetrievedDataEntry newPage,
             TagMagnitudeVector tagMagnitudeVector) {
         this.thePage = newPage;
         this.tagMagnitudeVector = tagMagnitudeVector;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DataEntryDataItem other = (DataEntryDataItem) obj;
+        if (this.thePage != other.thePage && (this.thePage == null || !this.thePage.equals(other.thePage))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.clusterId != null ? this.clusterId.hashCode() : 0);
+        return hash;
     }
   
     public boolean isCiRelated() {
@@ -42,7 +64,7 @@ public class CrawlerPageDataItem implements TextDataItem {
         return this.thePage;
     }
     
-    CrawlerPage getPage() {
+    RetrievedDataEntry getPage() {
         return thePage;
     }
 

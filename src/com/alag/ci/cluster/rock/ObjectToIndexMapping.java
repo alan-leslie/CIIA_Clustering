@@ -27,6 +27,7 @@ public class ObjectToIndexMapping<T> implements java.io.Serializable {
     private Map<Integer, T> indexMapping = new HashMap<Integer, T>();
 
     public ObjectToIndexMapping() {
+        int dummy = 0;
         // empty
     }
     
