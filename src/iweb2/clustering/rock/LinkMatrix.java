@@ -1,7 +1,8 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.rock;
 
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
+import iweb2.clustering.utils.ObjectToIndexMapping;
 import iweb2.similarity.SimilarityMeasure;
 
 import java.util.Arrays;

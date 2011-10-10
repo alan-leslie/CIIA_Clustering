@@ -1,4 +1,4 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.hierarchical;
 
 import com.alag.ci.cluster.TextCluster;
 import java.util.ArrayList;

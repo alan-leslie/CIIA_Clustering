@@ -1,5 +1,6 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.rock;
 
+import iweb2.clustering.hierarchical.Dendrogram;
 import com.alag.ci.blog.cluster.impl.ClusterImpl;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;

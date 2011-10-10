@@ -1,5 +1,8 @@
 package com.alag.ci.cluster.rock;
 
+import iweb2.clustering.rock.ROCKAlgorithm;
+import iweb2.clustering.rock.LinkMatrix;
+import iweb2.clustering.hierarchical.Dendrogram;
 import com.alag.ci.blog.dataset.impl.LocalData;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.blog.search.RetrievedDataEntry;

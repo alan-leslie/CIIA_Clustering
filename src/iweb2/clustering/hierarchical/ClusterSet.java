@@ -1,4 +1,4 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.hierarchical;
 
 
 //import iweb2.ch4.model.Cluster;

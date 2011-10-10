@@ -1,4 +1,4 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.utils;
 
 import java.util.HashMap;
 import java.util.Map;

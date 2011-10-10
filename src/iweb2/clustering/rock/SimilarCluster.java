@@ -1,4 +1,4 @@
-package com.alag.ci.cluster.rock;
+package iweb2.clustering.rock;
 
 import java.util.Collections;
 import java.util.Comparator;
