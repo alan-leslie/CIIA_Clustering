@@ -119,7 +119,7 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
     }
 
     public static void main(String[] args) throws Exception {
-        PageTextDataSetCreatorImpl pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317561855701/processed/", null);
+        PageTextDataSetCreatorImpl pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
         List<TextDataItem> beList = pt.createLearningData();
         
         TagMagnitudeVector tmCombined = null;
