@@ -94,6 +94,7 @@ public class Dendrogram {
         for(TextCluster c : clusters.getAllClusters()) {
         	if (c.getElements().size() > 1) {
         	System.out.println("____________________________________________________________\n");
+            System.out.println(c.getClusterId());                       
             System.out.println(c.getElementsAsString());
         	System.out.println("____________________________________________________________\n\n");
         	}

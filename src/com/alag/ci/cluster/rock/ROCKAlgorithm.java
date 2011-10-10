@@ -52,7 +52,7 @@ public class ROCKAlgorithm {
                 goodnessMeasure);
 
         int nClusters = allClusters.size();
-        while( nClusters > k ) {
+        while( nClusters > k) {
             int nClustersBeforeMerge = nClusters;
             g = allClusters.mergeBestCandidates();
             nClusters = allClusters.size();

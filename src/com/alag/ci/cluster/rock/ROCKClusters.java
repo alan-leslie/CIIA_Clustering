@@ -159,12 +159,11 @@ public class ROCKClusters {
             theData.add(theItem.getData());           
         }
         
-        DataSetCreator theCreator = new PageTextDataSetCreatorImpl(mergedTitle, theData);
+        DataSetCreator theCreator = new PageTextDataSetCreatorImpl("", theData);
         TextCluster cluster3 = new ClusterImpl(0, theCreator);
         removeCluster(key1);
         removeCluster(key2);
         Integer key3 = addCluster(cluster3);  
-        cluster3.setClusterId(key3);
 
         calculateClusterSimilarities();
         

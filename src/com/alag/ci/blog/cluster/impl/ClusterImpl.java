@@ -33,7 +33,7 @@ public class ClusterImpl implements TextCluster {
 
     public ClusterImpl(int clusterId,
             DataSetCreator pt) {
-        this.clusterId = clusterId;
+        this.clusterId = idCounter++;
         try {
             this.items = pt.createLearningData();
         } catch (Exception ex) {
@@ -82,7 +82,14 @@ public class ClusterImpl implements TextCluster {
     }
 
     public List<TextDataItem> getItems() {
-        return items;
+        List<TextDataItem> retVal = null;
+
+        if (items != null) {
+            retVal = new ArrayList<TextDataItem>();
+            retVal.addAll(items);
+        }
+
+        return retVal;
     }
 
     public void setCenter(TagMagnitudeVector center) {
@@ -134,7 +141,7 @@ public class ClusterImpl implements TextCluster {
 
     @Override
     public List<TextDataItem> getDataItems() {
-        return items;
+        return getItems();
     }
 
     @Override
@@ -221,7 +228,14 @@ public class ClusterImpl implements TextCluster {
 
     @Override
     public List<TextCluster> getSubClusters() {
-        return subClusters;
+        List<TextCluster> theSubClusters = null;
+        
+        if(subClusters != null){
+            theSubClusters = new ArrayList<TextCluster>();
+            theSubClusters.addAll(subClusters);
+        }
+        
+        return theSubClusters;
     }
 
     @Override
@@ -246,21 +260,50 @@ public class ClusterImpl implements TextCluster {
         copy.setCenter(getCenter());
         copy.setItems(getItems());
         copy.setSubClusters(getSubClusters());
-    
+
         return copy;
     }
 
     @Override
     public String getElementsAsString() {
-       StringBuffer buf = new StringBuffer();
-        for(TextDataItem e : items) {
-            if( buf.length() > 0 ) {
+        StringBuffer buf = new StringBuffer();
+        for (TextDataItem e : items) {
+            if (buf.length() > 0) {
                 buf.append(",\n");
             }
-            buf.append(e.getTags(50));
+            buf.append(e.getData().getTitle());
         }
 
         return "{" + buf.toString() + "}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClusterImpl other = (ClusterImpl) obj;
+        if (items == null) {
+            if (other.items != null) {
+                return false;
+            }
+        } else {
+            if (!items.equals(other.items)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + this.clusterId;
+        return hash;
     }
 
     private void setItems(List<TextDataItem> items) {
