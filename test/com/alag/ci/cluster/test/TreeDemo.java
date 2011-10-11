@@ -49,6 +49,7 @@ import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.cluster.hiercluster.HierCluster;
+import iweb2.clustering.hierarchical.Dendrogram;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JEditorPane;
@@ -89,6 +90,52 @@ public class TreeDemo extends JPanel
     public TreeDemo(TextCluster rootCluster) {
         super(new GridLayout(1, 0));
         this.rootCluster = rootCluster;
+
+        //Create the nodes.
+        DefaultMutableTreeNode top =
+                new DefaultMutableTreeNode("Main Cluster");
+        createNodes(top);
+
+        //Create a tree that allows one selection at a time.
+        tree = new JTree(top);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+        //Listen for when the selection changes.
+        tree.addTreeSelectionListener(this);
+
+        if (playWithLineStyle) {
+            System.out.println("line style = " + lineStyle);
+            tree.putClientProperty("JTree.lineStyle", lineStyle);
+        }
+
+        //Create the scroll pane and add the tree to it. 
+        JScrollPane treeView = new JScrollPane(tree);
+
+        //Create the HTML viewing pane.
+        htmlPane = new JEditorPane();
+        htmlPane.setEditable(false);
+        initHelp();
+        JScrollPane htmlView = new JScrollPane(htmlPane);
+
+        //Add the scroll panes to a split pane.
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.setTopComponent(treeView);
+        splitPane.setBottomComponent(htmlView);
+
+        Dimension minimumSize = new Dimension(100, 50);
+        htmlView.setMinimumSize(minimumSize);
+        treeView.setMinimumSize(minimumSize);
+        splitPane.setDividerLocation(100);
+        splitPane.setPreferredSize(new Dimension(500, 300));
+
+        //Add the split pane to this panel.
+        add(splitPane);
+    }
+
+    public TreeDemo(Dendrogram clusterTree) {
+        super(new GridLayout(1, 0));
+        // todo
+//        this.rootCluster = rootCluster;
 
         //Create the nodes.
         DefaultMutableTreeNode top =
@@ -236,6 +283,40 @@ public class TreeDemo extends JPanel
         return retVal;
     }
 
+    private DefaultMutableTreeNode createClusterNode(Dendrogram theTree) {
+        DefaultMutableTreeNode retVal = null;
+        // probably best to do this bottom up
+        // get levels 
+        // then get clusters from last level through to first
+        if (theTree != null) {
+            List<Integer> theLevels = theTree.getAllLevels();
+
+            // initial clusters is at index 1
+            for (int i = theLevels.size(); i > 0; --i) {
+                List<TextCluster> theClusters = theTree.getClustersForLevel(1);
+
+                for (TextCluster theCluster : theClusters) {
+                    List<TextDataItem> dataItems = theCluster.getDataItems();
+
+                    if (dataItems.size() == 1) {
+//                retVal = new DefaultMutableTreeNode(new StoryInfo(cluster.getTitle(),
+//                        cluster.getSource()));                        
+                    } else {
+//                retVal = new DefaultMutableTreeNode("id=" + Integer.toString(cluster.getClusterId()));
+//
+//                for (TextCluster subCluster : subClusters) {
+//                    DefaultMutableTreeNode childNode = createClusterNode(subCluster);
+//                    retVal.add(childNode);
+//                }
+                    }
+                }
+            }
+
+        }
+
+        return retVal;
+    }
+
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -263,9 +344,39 @@ public class TreeDemo extends JPanel
         frame.setVisible(true);
     }
 
+    /**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event dispatch thread.
+     */
+    private static void createAndShowGUI(Dendrogram rootCluster) {
+        if (useSystemLookAndFeel) {
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                System.err.println("Couldn't use system look and feel.");
+            }
+        }
+
+        //Create and set up the window.
+        JFrame frame = new JFrame("TreeDemo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Add content to the window.
+        frame.add(new TreeDemo(rootCluster));
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     public static void main(String[] args) {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
+
+        // todo - get the tree to look at sub clusters and also to dendrogram
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             @Override
