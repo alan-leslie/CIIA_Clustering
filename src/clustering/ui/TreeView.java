@@ -28,7 +28,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.alag.ci.cluster.test;
+package clustering.ui;
 
 /**
  * This application that requires the following additional files:
@@ -42,16 +42,10 @@ package com.alag.ci.cluster.test;
  *    tutorialcont.html
  *    vm.html
  */
-import com.alag.ci.blog.cluster.impl.HierarchialClusteringImpl;
-import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
-//import com.alag.ci.cluster.Clusterer;
-import com.alag.ci.cluster.DataSetCreator;
+
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
-import com.alag.ci.cluster.hiercluster.HierCluster;
 import iweb2.clustering.hierarchical.Dendrogram;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -72,7 +66,7 @@ import java.awt.GridLayout;
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class TreeDemo extends JPanel
+public class TreeView extends JPanel
         implements TreeSelectionListener {
 
     private JEditorPane htmlPane;
@@ -87,7 +81,7 @@ public class TreeDemo extends JPanel
     private static boolean useSystemLookAndFeel = false;
     private TextCluster rootCluster = null;
 
-    public TreeDemo(TextCluster rootCluster) {
+    public TreeView(TextCluster rootCluster) {
         super(new GridLayout(1, 0));
         this.rootCluster = rootCluster;
 
@@ -132,7 +126,7 @@ public class TreeDemo extends JPanel
         add(splitPane);
     }
 
-    public TreeDemo(Dendrogram clusterTree) {
+    public TreeView(Dendrogram clusterTree) {
         super(new GridLayout(1, 0));
         // todo
 //        this.rootCluster = rootCluster;
@@ -321,8 +315,9 @@ public class TreeDemo extends JPanel
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
+     * @param rootCluster 
      */
-    private static void createAndShowGUI(TextCluster rootCluster) {
+    public static void createAndShowGUI(TextCluster rootCluster) {
         if (useSystemLookAndFeel) {
             try {
                 UIManager.setLookAndFeel(
@@ -337,7 +332,7 @@ public class TreeDemo extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new TreeDemo(rootCluster));
+        frame.add(new TreeView(rootCluster));
 
         //Display the window.
         frame.pack();
@@ -348,8 +343,9 @@ public class TreeDemo extends JPanel
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
+     * @param rootCluster 
      */
-    private static void createAndShowGUI(Dendrogram rootCluster) {
+    public static void createAndShowGUI(Dendrogram rootCluster) {
         if (useSystemLookAndFeel) {
             try {
                 UIManager.setLookAndFeel(
@@ -364,38 +360,10 @@ public class TreeDemo extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new TreeDemo(rootCluster));
+        frame.add(new TreeView(rootCluster));
 
         //Display the window.
         frame.pack();
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
-
-        // todo - get the tree to look at sub clusters and also to dendrogram
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
-                List<TextDataItem> beList;
-                try {
-                    beList = pt.createLearningData();
-                    HierarchialClusteringImpl clusterer = new HierarchialClusteringImpl(
-                            beList);
-                    clusterer.cluster();
-                    System.out.println(clusterer);
-
-                    HierCluster rootCluster = clusterer.getRoot();
-                    createAndShowGUI(rootCluster);
-                } catch (Exception ex) {
-                    Logger.getLogger(TreeDemo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
 }

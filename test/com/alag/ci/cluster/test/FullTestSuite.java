@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
  * @author al
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({com.alag.ci.cluster.rock.ROCKAlgoritmTest.class,
+@Suite.SuiteClasses({com.alag.ci.cluster.rock.ROCKAlgorithmTest.class,
     com.alag.ci.blog.cluster.test.TextKMeansClustererTest.class})
 public class FullTestSuite {
 
