@@ -52,9 +52,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TreeClusterUITest {
+public class TreeHierClusterUITest {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
@@ -68,7 +69,7 @@ public class TreeClusterUITest {
                     HierCluster rootCluster = clusterer.getRoot();
                     TreeView.createAndShowGUI(rootCluster);
                 } catch (Exception ex) {
-                    Logger.getLogger(TreeClusterUITest.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TreeHierClusterUITest.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
