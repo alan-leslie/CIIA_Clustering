@@ -80,6 +80,7 @@ public class TreeView extends JPanel
     //Optionally set the look and feel.
     private static boolean useSystemLookAndFeel = false;
     private TextCluster rootCluster = null;
+    private Dendrogram rootDendrogram = null;
 
     public TreeView(TextCluster rootCluster) {
         super(new GridLayout(1, 0));
@@ -129,7 +130,7 @@ public class TreeView extends JPanel
     public TreeView(Dendrogram clusterTree) {
         super(new GridLayout(1, 0));
         // todo
-//        this.rootCluster = rootCluster;
+        this.rootDendrogram = clusterTree;
 
         //Create the nodes.
         DefaultMutableTreeNode top =
@@ -249,8 +250,12 @@ public class TreeView extends JPanel
     }
 
     private void createNodes(DefaultMutableTreeNode top) {
-
-        DefaultMutableTreeNode rootNode = createClusterNode(rootCluster);
+        DefaultMutableTreeNode rootNode = null;
+        if(rootCluster != null){
+            rootNode = createClusterNode(rootCluster);
+        } else {
+            rootNode = createClusterNode(rootDendrogram);            
+        }
 
         top.add(rootNode);
     }
