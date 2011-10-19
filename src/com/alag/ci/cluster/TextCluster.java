@@ -19,4 +19,7 @@ public interface TextCluster {
     public Set<TextDataItem> getElements();
     public TextCluster copy();
     public String getElementsAsString();
+
+    public void addSubCluster(TextCluster cluster);
+    public String asXML();
 }

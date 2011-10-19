@@ -48,6 +48,7 @@ import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextDataItem;
 import com.alag.ci.cluster.hiercluster.HierCluster;
+import iweb2.clustering.utils.XMLFile;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +68,7 @@ public class TreeHierClusterUITest {
                     System.out.println(clusterer);
 
                     HierCluster rootCluster = clusterer.getRoot();
-                    TreeView.createAndShowGUI(rootCluster);
+                    XMLFile.writeXML("HierTest.xml", rootCluster.asXML());
                 } catch (Exception ex) {
                     Logger.getLogger(TreeHierClusterUITest.class.getName()).log(Level.SEVERE, null, ex);
                 }

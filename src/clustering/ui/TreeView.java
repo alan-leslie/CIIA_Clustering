@@ -42,7 +42,6 @@ package clustering.ui;
  *    tutorialcont.html
  *    vm.html
  */
-
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
 import iweb2.clustering.hierarchical.Dendrogram;
@@ -64,7 +63,9 @@ import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.net.MalformedURLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TreeView extends JPanel
         implements TreeSelectionListener {
@@ -79,17 +80,17 @@ public class TreeView extends JPanel
     private static String lineStyle = "Horizontal";
     //Optionally set the look and feel.
     private static boolean useSystemLookAndFeel = false;
-    private TextCluster rootCluster = null;
-    private Dendrogram rootDendrogram = null;
+//    private TextCluster rootCluster = null;
+//    private Dendrogram rootDendrogram = null;
 
     public TreeView(TextCluster rootCluster) {
         super(new GridLayout(1, 0));
-        this.rootCluster = rootCluster;
+//        this.rootCluster = rootCluster;
 
         //Create the nodes.
         DefaultMutableTreeNode top =
                 new DefaultMutableTreeNode("Main Cluster");
-        createNodes(top);
+        createNodes(top, rootCluster);
 
         //Create a tree that allows one selection at a time.
         tree = new JTree(top);
@@ -130,12 +131,12 @@ public class TreeView extends JPanel
     public TreeView(Dendrogram clusterTree) {
         super(new GridLayout(1, 0));
         // todo
-        this.rootDendrogram = clusterTree;
+//        this.rootDendrogram = clusterTree;
 
         //Create the nodes.
         DefaultMutableTreeNode top =
                 new DefaultMutableTreeNode("Main Cluster");
-        createNodes(top);
+        createNodes(top, clusterTree);
 
         //Create a tree that allows one selection at a time.
         tree = new JTree(top);
@@ -187,7 +188,9 @@ public class TreeView extends JPanel
         Object nodeInfo = node.getUserObject();
         if (node.isLeaf()) {
             StoryInfo book = (StoryInfo) nodeInfo;
-            displayURL(book.url);
+            if(book.hasValidURL()){
+                displayURL(book.getURL());
+            }
             if (DEBUG) {
                 System.out.print(book.url + ":  \n    ");
             }
@@ -202,23 +205,35 @@ public class TreeView extends JPanel
     private class StoryInfo {
 
         public String title;
-        public URL url;
+        public String urlAsText;        
+        public URL url = null;
 
         public StoryInfo(String title, String urlAsText) {
             this.title = title;
+            this.urlAsText = urlAsText;
+            
             try {
                 url = new URL(urlAsText);
-                if (url == null) {
-                    System.err.println("Couldn't find url: '" + urlAsText + "'");
-                }
             } catch (MalformedURLException e) {
-                throw new RuntimeException("Invalid url: '" + urlAsText + "', title: '" + title + "'", e);
+//                throw new RuntimeException("Invalid url: '" + urlAsText + "', title: '" + title + "'", e);
+            }
+            
+            if (url == null) {
+                System.err.println("Couldn't find url: '" + urlAsText + "'");
             }
         }
 
         @Override
         public String toString() {
             return title;
+        }
+
+        private boolean hasValidURL() {
+            return url != null;
+        }
+
+        private URL getURL() {
+            return url;
         }
     }
 
@@ -249,15 +264,29 @@ public class TreeView extends JPanel
         }
     }
 
-    private void createNodes(DefaultMutableTreeNode top) {
-        DefaultMutableTreeNode rootNode = null;
-        if(rootCluster != null){
+    private void createNodes(DefaultMutableTreeNode top,
+            TextCluster rootCluster) {
+        if (rootCluster != null) {
+            DefaultMutableTreeNode rootNode = null;
             rootNode = createClusterNode(rootCluster);
-        } else {
-            rootNode = createClusterNode(rootDendrogram);            
+            top.add(rootNode);
         }
+    }
 
-        top.add(rootNode);
+    private void createNodes(DefaultMutableTreeNode top,
+            Dendrogram theTree) {
+        if (theTree != null) {
+            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode();
+            
+            List<TextCluster> theClusters = theTree.getClustersForLevel(theTree.getTopLevel());
+            
+            for (TextCluster theCluster : theClusters) {
+                DefaultMutableTreeNode subNode = createClusterNode(theCluster);
+                rootNode.add(subNode);
+            }
+
+            top.add(rootNode);
+        }
     }
 
     private DefaultMutableTreeNode createClusterNode(TextCluster cluster) {
@@ -266,7 +295,8 @@ public class TreeView extends JPanel
         if (cluster != null) {
             List<TextCluster> subClusters = cluster.getSubClusters();
 
-            if (subClusters.isEmpty()) {
+            if (subClusters == null ||
+                    subClusters.isEmpty()) {
                 retVal = new DefaultMutableTreeNode(new StoryInfo(cluster.getTitle(),
                         cluster.getSource()));
             } else {
@@ -277,40 +307,6 @@ public class TreeView extends JPanel
                     retVal.add(childNode);
                 }
             }
-        }
-
-        return retVal;
-    }
-
-    private DefaultMutableTreeNode createClusterNode(Dendrogram theTree) {
-        DefaultMutableTreeNode retVal = null;
-        // probably best to do this bottom up
-        // get levels 
-        // then get clusters from last level through to first
-        if (theTree != null) {
-            List<Integer> theLevels = theTree.getAllLevels();
-
-            // initial clusters is at index 1
-            for (int i = theLevels.size(); i > 0; --i) {
-                List<TextCluster> theClusters = theTree.getClustersForLevel(1);
-
-                for (TextCluster theCluster : theClusters) {
-                    List<TextDataItem> dataItems = theCluster.getDataItems();
-
-                    if (dataItems.size() == 1) {
-//                retVal = new DefaultMutableTreeNode(new StoryInfo(cluster.getTitle(),
-//                        cluster.getSource()));                        
-                    } else {
-//                retVal = new DefaultMutableTreeNode("id=" + Integer.toString(cluster.getClusterId()));
-//
-//                for (TextCluster subCluster : subClusters) {
-//                    DefaultMutableTreeNode childNode = createClusterNode(subCluster);
-//                    retVal.add(childNode);
-//                }
-                    }
-                }
-            }
-
         }
 
         return retVal;

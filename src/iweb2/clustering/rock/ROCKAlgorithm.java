@@ -9,6 +9,7 @@ import com.alag.ci.blog.search.RetrievedDataEntry;
 import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.cluster.TextDataItem;
+import iweb2.clustering.utils.XMLFile;
 import iweb2.similarity.JaccardCoefficient;
 import iweb2.similarity.SimilarityMeasure;
 
@@ -69,6 +70,7 @@ public class ROCKAlgorithm {
         }
 
         System.out.println("Number of clusters: " + allClusters.getAllClusters().size());
+        
         return dnd;
     }
 
@@ -108,6 +110,7 @@ public class ROCKAlgorithm {
             ROCKAlgorithm rock = new ROCKAlgorithm(testData, k, th);
             Dendrogram dnd = rock.cluster();
             dnd.printAll();
+            XMLFile.writeXML("ROCKTest.xml", dnd.asXML());
 
             TreeView.createAndShowGUI(dnd);
         } catch (Exception ex) {

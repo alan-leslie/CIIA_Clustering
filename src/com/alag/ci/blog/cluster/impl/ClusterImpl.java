@@ -219,12 +219,12 @@ public class ClusterImpl implements TextCluster {
     @Override
     public List<TextCluster> getSubClusters() {
         List<TextCluster> theSubClusters = null;
-        
-        if(subClusters != null){
+
+        if (subClusters != null) {
             theSubClusters = new ArrayList<TextCluster>();
             theSubClusters.addAll(subClusters);
         }
-        
+
         return theSubClusters;
     }
 
@@ -302,5 +302,38 @@ public class ClusterImpl implements TextCluster {
 
     private void setSubClusters(List<TextCluster> subClusters) {
         this.subClusters = subClusters;
+    }
+
+    // should check if cluster exists already
+    // should check that all of the parents data items 
+    // are included (precon)
+    @Override
+    public void addSubCluster(TextCluster cluster) {
+        if (subClusters == null) {
+            subClusters = new ArrayList<TextCluster>();
+        }
+
+        subClusters.add(cluster);
+    }
+
+    @Override
+    public String asXML() {
+        StringBuilder theBuilder = new StringBuilder();
+        theBuilder.append("<cluster>\n");
+        theBuilder.append("<name>");
+        if(getElements().size() > 1){
+            theBuilder.append(Integer.toString(getClusterId())); 
+        } else {
+            theBuilder.append(getElementsAsString());
+        }
+        theBuilder.append("</name>\n");
+        if (subClusters != null) {
+            for (TextCluster subCluster : subClusters) {
+                theBuilder.append(subCluster.asXML());
+            }
+        }
+        theBuilder.append("</cluster>\n");
+        String theXML = theBuilder.toString();
+        return theXML;
     }
 }

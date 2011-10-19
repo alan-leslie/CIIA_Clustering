@@ -10,6 +10,7 @@ import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextDataItem;
 import iweb2.clustering.hierarchical.Dendrogram;
 import iweb2.clustering.rock.ROCKAlgorithm;
+import iweb2.clustering.utils.XMLFile;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class TreeROCKClusterTest {
                     Dendrogram dnd = rock.cluster();
                     dnd.printAll();
 
-                    TreeView.createAndShowGUI(dnd);
+                    XMLFile.writeXML("ROCKTest.xml", dnd.asXML());
                 } catch (Exception ex) {
                     Logger.getLogger(TreeROCKClusterTest.class.getName()).log(Level.SEVERE, null, ex);
                 }

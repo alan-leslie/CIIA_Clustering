@@ -10,6 +10,7 @@ import com.alag.ci.blog.cluster.impl.TextKMeansClustererImpl;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextCluster;
+import iweb2.clustering.utils.XMLFile;
 
 /**
  *
@@ -27,7 +28,7 @@ public class TreeKMeansClusterTest {
                 TextCluster rootCluster = new ClusterImpl(0, pt);
                 rootCluster.hierCluster(clusterer);
 
-                TreeView.createAndShowGUI(rootCluster);
+                XMLFile.writeXML("KMeansTest.xml", rootCluster.asXML());
             }
         });
     }

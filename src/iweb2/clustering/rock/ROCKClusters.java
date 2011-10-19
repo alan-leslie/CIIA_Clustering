@@ -161,6 +161,8 @@ public class ROCKClusters {
         
         DataSetCreator theCreator = new PageTextDataSetCreatorImpl("", theData);
         TextCluster cluster3 = new ClusterImpl(0, theCreator);
+        cluster3.addSubCluster(cluster1);
+        cluster3.addSubCluster(cluster2);
         removeCluster(key1);
         removeCluster(key2);
         Integer key3 = addCluster(cluster3);  
