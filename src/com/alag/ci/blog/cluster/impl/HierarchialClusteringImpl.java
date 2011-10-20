@@ -136,8 +136,6 @@ public class HierarchialClusteringImpl implements Clusterer {
     public static void main(String [] args) throws Exception {
         DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317561855701/processed/", null);
         List<TextDataItem> beList = pt.createLearningData();
-//        DataSetCreator bc = new BlogDataSetCreatorImpl();
-//        List<TextDataItem> blogData = bc.createLearningData();
         Clusterer clusterer = new HierarchialClusteringImpl(
                 beList);
         clusterer.cluster();

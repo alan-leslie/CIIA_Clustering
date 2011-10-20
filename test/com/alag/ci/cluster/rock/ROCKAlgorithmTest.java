@@ -1,6 +1,5 @@
 package com.alag.ci.cluster.rock;
 
-import clustering.ui.TreeView;
 import com.alag.ci.blog.dataset.impl.LocalData;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.blog.search.RetrievedDataEntry;
@@ -81,8 +80,6 @@ public class ROCKAlgorithmTest {
                     assert (theClusters.size() == 2);
 
                     dnd.printAll();
-
-                    TreeView.createAndShowGUI(dnd);
                 } catch (Exception ex) {
                     Logger.getLogger(ROCKAlgorithmTest.class.getName()).log(Level.SEVERE, null, ex);
                 }

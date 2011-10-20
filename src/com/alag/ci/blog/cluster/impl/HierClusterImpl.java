@@ -144,8 +144,30 @@ public class HierClusterImpl extends ClusterImpl implements HierCluster {
         return theChildren;
     }
     
+    @Override
     public List<HierCluster> getChildren(){
         List<HierCluster> theChildren = new ArrayList<HierCluster>();
         return theChildren;
+    }
+    
+    @Override
+    public String asXML() {
+        StringBuilder theBuilder = new StringBuilder();
+        theBuilder.append("<cluster>\n");
+        theBuilder.append("<name>");
+        if(getChildren().size() > 1){
+            theBuilder.append(Integer.toString(getClusterId())); 
+        } else {
+            theBuilder.append(getElementsAsString());
+        }
+        theBuilder.append("</name>\n");
+        if (getChildren() != null) {
+            for (TextCluster subCluster : getChildren()) {
+                theBuilder.append(subCluster.asXML());
+            }
+        }
+        theBuilder.append("</cluster>\n");
+        String theXML = theBuilder.toString();
+        return theXML;
     }
 }

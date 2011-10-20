@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.alag.ci.cluster.test;
 
-import clustering.ui.TreeView;
 import com.alag.ci.blog.cluster.impl.ClusterImpl;
 import com.alag.ci.blog.cluster.impl.TextKMeansClustererImpl;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
@@ -12,24 +7,30 @@ import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextCluster;
 import iweb2.clustering.utils.XMLFile;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
  *
  * @author al
  */
 public class TreeKMeansClusterTest {
 
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+    @Test
+    public void testValidClustering() {
+        try {
+            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+            TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(3);
+            TextCluster rootCluster = new ClusterImpl(0, pt);
+            rootCluster.hierCluster(clusterer);
 
-            @Override
-            public void run() {
-                DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
-                TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(3);
-                TextCluster rootCluster = new ClusterImpl(0, pt);
-                rootCluster.hierCluster(clusterer);
-
-                XMLFile.writeXML("KMeansTest.xml", rootCluster.asXML());
-            }
-        });
+            XMLFile.writeXML("KMeansTest.xml", rootCluster.asXML());
+        } catch (Exception ex) {
+            assert (false);
+        }
     }
 }

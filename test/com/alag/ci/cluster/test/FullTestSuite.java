@@ -17,7 +17,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({com.alag.ci.cluster.rock.ROCKAlgorithmTest.class,
-    com.alag.ci.blog.cluster.test.TextKMeansClustererTest.class})
+    com.alag.ci.blog.cluster.test.TextKMeansClustererTest.class,
+    com.alag.ci.cluster.test.TreeKMeansClusterTest.class,
+    com.alag.ci.cluster.test.TreeROCKClusterTest.class,
+    com.alag.ci.cluster.test.TreeHierClusterTest.class})
 public class FullTestSuite {
 
     @BeforeClass
