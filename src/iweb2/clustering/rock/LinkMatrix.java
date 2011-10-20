@@ -5,7 +5,9 @@ import com.alag.ci.cluster.TextDataItem;
 import iweb2.clustering.utils.ObjectToIndexMapping;
 import iweb2.similarity.SimilarityMeasure;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -117,15 +119,21 @@ public class LinkMatrix {
      */
     private double[][] calculatePointSimilarities(
             TextDataItem[] points, SimilarityMeasure pointSim) {
+        List<String[]> theTags = new ArrayList<String[]>();
         
         int n = points.length;
         double[][] simMatrix = new double[n][n];
+        
         for(int i = 0; i < n; i++) {
             TextDataItem itemX = points[i];
             String[] attributesX = itemX.getTags(TOP_N_TERMS);
+            theTags.add(attributesX);
+        }
+        
+        for(int i = 0; i < n; i++) {
+            String[] attributesX = theTags.get(i);
             for(int j = i + 1; j < n; j++) {
-                TextDataItem itemY = points[j];
-                String[] attributesY = itemY.getTags(TOP_N_TERMS);
+                String[] attributesY = theTags.get(j);
                 simMatrix[i][j] = pointSim.similarity(
                         attributesX, attributesY);
                 simMatrix[j][i] = simMatrix[i][j];
