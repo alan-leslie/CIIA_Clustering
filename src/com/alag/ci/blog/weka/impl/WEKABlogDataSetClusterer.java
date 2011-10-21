@@ -63,10 +63,11 @@ public class WEKABlogDataSetClusterer extends PageTextDataSetCreatorImpl {
     }
 
 
-    public void cluster() throws Exception {
+    public ClusterEvaluation cluster() throws Exception {
         Instances instances = createLearningDataSet();
         Clusterer clusterer = getClusterer(instances);
-        evaluateCluster(clusterer, instances);
+        ClusterEvaluation evaluateCluster = evaluateCluster(clusterer, instances);
+        return evaluateCluster;
     }
     
 
@@ -96,7 +97,7 @@ public class WEKABlogDataSetClusterer extends PageTextDataSetCreatorImpl {
         return eval;
     }
     
-    private Map<Integer, List<RetrievedDataEntry>> associateInstancesWithClusters(double[] assignments) {
+    public Map<Integer, List<RetrievedDataEntry>> associateInstancesWithClusters(double[] assignments) {
         int index = 0;
         Map<Integer, List<RetrievedDataEntry>> assignMap = new HashMap<Integer, List<RetrievedDataEntry>>();
         for (double assignment : assignments) {

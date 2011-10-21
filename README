@@ -1,0 +1,13 @@
+Java program to compare clustering algorithms when applied to personal bokmarks.
+
+Using code from the books:
+collective inteligence in action - ISBN: 1933988312
+algorithms of the intelligent web - ISBN: 1933988665
+
+Adapted to work with web page data created by BookMarkCrawler 
+and analysed by TextAnalysis.
+For each type of clustering algorithm ouputs an XML file that can be imported into - 
+Archaeopteryx (http://www.phylosoft.org/archaeopteryx/)
+which does a really good of displaying dendograms.
+
+Note: built with netbeans.
