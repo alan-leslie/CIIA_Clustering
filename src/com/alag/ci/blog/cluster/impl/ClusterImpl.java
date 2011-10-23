@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ClusterImpl implements TextCluster {
 
-    private static int CLUSTER_NO = 3;
+    public static int CLUSTER_NO = 3;
     private static int idCounter = 0;
     private TagMagnitudeVector center = null;
     private List<TextDataItem> items = null;
@@ -42,16 +42,6 @@ public class ClusterImpl implements TextCluster {
         }
     }
 
-//    public ClusterImpl(int clusterId,
-//            List<TextDataItem> theItems) {
-//        this.clusterId = clusterId;
-//        try {
-//            this.items = theItems;
-//        } catch (Exception ex) {
-//            this.items = new ArrayList<TextDataItem>();
-//            Logger.getLogger(ClusterImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     @Override
     public void computeCenter() {
         if (this.items.isEmpty()) {
@@ -188,7 +178,7 @@ public class ClusterImpl implements TextCluster {
             for (TextDataItem theItem : items) {
                 theData.add(theItem.getData());
             }
-            DataSetCreator subPageText = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1317050427563/processed/", theData);
+            DataSetCreator subPageText = new PageTextDataSetCreatorImpl("", theData);
             try {
                 List<TextDataItem> spList = subPageText.createLearningData();
             } catch (Exception ex) {
@@ -196,8 +186,6 @@ public class ClusterImpl implements TextCluster {
             }
 
             if (this.items != null) {
-
-
                 if (this.items.size() > CLUSTER_NO) {
                     theClusterer.setDataSet(this.items);
                     subClusters = theClusterer.cluster();
@@ -206,10 +194,12 @@ public class ClusterImpl implements TextCluster {
                         theSubCluster.hierCluster(theClusterer);
                     }
                 } else {
-                    subClusters = new ArrayList<TextCluster>();
-                    for (TextDataItem theItem : items) {
-                        TextCluster theSubCluster = new ClusterImpl(0, theItem);
-                        boolean add = subClusters.add(theSubCluster);
+                    if (this.items.size() > 1) {
+                        subClusters = new ArrayList<TextCluster>();
+                        for (TextDataItem theItem : items) {
+                            TextCluster theSubCluster = new ClusterImpl(0, theItem);
+                            boolean add = subClusters.add(theSubCluster);
+                        }
                     }
                 }
             }

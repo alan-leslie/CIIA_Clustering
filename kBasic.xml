@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><phyloxml xmlns="http://www.phyloxml.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.phyloxml.org http://www.phyloxml.org/1.10/phyloxml.xsd">
+<phylogeny rooted="true">
+<clade xmlns="">
+<name>0</name>
+<clade>
+<name>1</name>
+<clade>
+<name>{Doc1}</name>
+</clade>
+<clade>
+<name>{Doc4}</name>
+</clade>
+</clade>
+<clade>
+<name>2</name>
+<clade>
+<name>{Doc2}</name>
+</clade>
+<clade>
+<name>{Doc3}</name>
+</clade>
+</clade>
+</clade>
+</phylogeny>
+</phyloxml>

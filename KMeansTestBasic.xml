@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cluster>
+<name>0</name>
+<cluster>
+<name>1</name>
+<cluster>
+<name>{Doc4}</name>
+</cluster>
+<cluster>
+<name>12</name>
+<cluster>
+<name>{Doc2}</name>
+</cluster>
+<cluster>
+<name>{Doc3}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>{Doc1}</name>
+</cluster>
+</cluster>

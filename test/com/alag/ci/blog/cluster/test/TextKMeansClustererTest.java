@@ -4,6 +4,11 @@
  */
 package com.alag.ci.blog.cluster.test;
 
+import iweb2.clustering.utils.XMLFile;
+import com.alag.ci.cluster.TextDataItem;
+import com.alag.ci.blog.dataset.impl.LocalData;
+import com.alag.ci.blog.search.RetrievedDataEntry;
+import java.util.ArrayList;
 import java.util.List;
 import com.alag.ci.cluster.TextCluster;
 import com.alag.ci.blog.cluster.impl.ClusterImpl;
@@ -47,18 +52,21 @@ public class TextKMeansClustererTest {
      */
     @Test
     public void testValidClustering() {
-        DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
-        TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(3);
+        List<RetrievedDataEntry> elements = new ArrayList<RetrievedDataEntry>();
+        elements.add(new LocalData("Doc1", "book"));
+        elements.add(new LocalData("Doc2", "water sun sand swim"));
+        elements.add(new LocalData("Doc3", "water sun swim read"));
+        elements.add(new LocalData("Doc4", "read sand"));
+
+        DataSetCreator pt = new PageTextDataSetCreatorImpl("", elements);
+
+        TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(2);
+        ClusterImpl.CLUSTER_NO = 2;
         TextCluster rootCluster = new ClusterImpl(0, pt);
         rootCluster.hierCluster(clusterer);
+
+        XMLFile.writeXML("KMeansTestBasic.xml", rootCluster.asXML());
         List<TextCluster> theClusters = rootCluster.getSubClusters(); // not really needed
-        
-        int i = 0;
-        for(TextCluster theCluster: theClusters){
-            System.out.println("Cluster no:" + Integer.toString(i));          
-            System.out.println(theCluster.toString());
-            ++i;
-        }
         
         // todo - add assertions
     }
