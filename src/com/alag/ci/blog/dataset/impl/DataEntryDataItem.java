@@ -107,10 +107,16 @@ public class DataEntryDataItem implements TextDataItem {
         }
 
         String retVal[] = new String[tagArraySize];
+        StringBuilder opBuilder = new StringBuilder();
         
         for(int i = 0; i < tagArraySize && i < tagMagnitudes.size(); ++i){
-            retVal[i] = tagMagnitudes.get(i).getTag().getStemmedText();
+            String theStemmedText = tagMagnitudes.get(i).getTag().getStemmedText();
+            retVal[i] = theStemmedText;
+            opBuilder.append(theStemmedText);
+            opBuilder.append(",");         
         }
+        
+        System.out.println(opBuilder.toString());
         
         // anything left over is set to null
         

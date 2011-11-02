@@ -20,7 +20,8 @@ public class TreeHierClusterTest {
     @Test
     public void testValidClustering() {
         try {
-            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+//            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1318553114765/processed/", null);
 
             List<TextDataItem> beList = pt.createLearningData();
             HierarchialClusteringImpl clusterer = new HierarchialClusteringImpl(beList);

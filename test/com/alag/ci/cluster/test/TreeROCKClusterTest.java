@@ -4,6 +4,7 @@
  */
 package com.alag.ci.cluster.test;
 
+import iweb2.clustering.rock.LinkMatrix;
 import com.alag.ci.blog.dataset.impl.PageTextDataSetCreatorImpl;
 import com.alag.ci.cluster.DataSetCreator;
 import com.alag.ci.cluster.TextDataItem;
@@ -28,13 +29,16 @@ public class TreeROCKClusterTest {
     @Test
     public void testValidClustering() {
         try {
-            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+//            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1318553114765/processed/", null);
+//            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/test/processed/", null);
 
             List<TextDataItem> beList = pt.createLearningData();
             TextDataItem[] testData = beList.toArray(new TextDataItem[beList.size()]);
 
             int k = 1;
-            double th = 0.2;
+            double th = 0.1;
+            LinkMatrix.TOP_N_TERMS = 50;
             ROCKAlgorithm rock = new ROCKAlgorithm(testData, k, th);
             Dendrogram dnd = rock.cluster();
             dnd.printAll();

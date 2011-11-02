@@ -102,6 +102,8 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
                 freqEstimator.addCount(tm.getTag());
             }
         }
+        
+        System.out.println("no of tags is:" + Integer.toString(freqEstimator.noOfTags()));
 
         for (RetrievedDataEntry thePage : theData) {
             String text = thePage.getText();

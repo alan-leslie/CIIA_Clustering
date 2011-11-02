@@ -23,8 +23,11 @@ public class TreeKMeansClusterTest {
     @Test
     public void testValidClustering() {
         try {
-            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
-            TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(3);
+            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl-1318553114765/processed/", null);
+
+//            DataSetCreator pt = new PageTextDataSetCreatorImpl("/home/al/lasers/crawl_small/processed/", null);
+            TextKMeansClustererImpl clusterer = new TextKMeansClustererImpl(5);
+            ClusterImpl.CLUSTER_NO = 5;
             TextCluster rootCluster = new ClusterImpl(0, pt);
             rootCluster.hierCluster(clusterer);
 

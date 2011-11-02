@@ -155,12 +155,12 @@ public class ROCKClusters {
         String mergedTitle = cluster1.getTitle() + "-" + cluster2.getTitle();
         List<RetrievedDataEntry> theData = new ArrayList<RetrievedDataEntry>();
         
-        for(TextDataItem theItem: theItems){
-            theData.add(theItem.getData());           
-        }
-        
-        DataSetCreator theCreator = new PageTextDataSetCreatorImpl("", theData);
-        TextCluster cluster3 = new ClusterImpl(0, theCreator);
+//        for(TextDataItem theItem: theItems){
+//            theData.add(theItem.getData());           
+//        }
+//        
+//        DataSetCreator theCreator = new PageTextDataSetCreatorImpl("", theData);
+        TextCluster cluster3 = new ClusterImpl(0, theItems);
         cluster3.addSubCluster(cluster1);
         cluster3.addSubCluster(cluster2);
         removeCluster(key1);

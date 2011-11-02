@@ -1,63 +1,378 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cluster>
-<name>20</name>
+<name>0</name>
 <cluster>
-<name>23</name>
+<name>1</name>
 <cluster>
-<name>{ciia}</name>
+<name>6</name>
+<cluster>
+<name>{5 Reasons and Resources for Validating Your HTML}</name>
 </cluster>
 <cluster>
-<name>{collective intelligence in action}</name>
+<name>12</name>
+<cluster>
+<name>{Web Color Chart - Hexadecimal - by VisiBone}</name>
 </cluster>
+<cluster>
+<name>{Writing CSS For Others - Smashing Coding}</name>
+</cluster>
+<cluster>
+<name>{Selenium 2.0: Out Now! « Official Selenium Blog}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>{Google: HTML, CSS, and Javascript from the Ground Up - Google Code University - Google Code}</name>
+</cluster>
+<cluster>
+<name>{Think Stats}</name>
+</cluster>
+<cluster>
+<name>{8 Best HTML5 Tools Every Web Designer Should Have | WebTabLab.com}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>{100 Great CSS Menu Tutorials}</name>
+</cluster>
+<cluster>
+<name>8</name>
+<cluster>
+<name>{Programmer Competency Matrix}</name>
+</cluster>
+<cluster>
+<name>{pydelicious -      pydelicious: from del.icio.us to Python - Google Project Hosting}</name>
+</cluster>
+<cluster>
+<name>{Delicious.com - Discover Yourself!}</name>
+</cluster>
+<cluster>
+<name>{What every computer science major should know}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>9</name>
+<cluster>
+<name>{Bridging the arts and sciences divide | Technology | The Guardian}</name>
 </cluster>
 <cluster>
 <name>24</name>
 <cluster>
-<name>{Imperfect C++}</name>
+<name>{New Search Tools for Del.icio.us}</name>
 </cluster>
 <cluster>
-<name>29</name>
-<cluster>
-<name>{polls - What is the best comment in source code you have ever encountered? - Stack Overflow}</name>
+<name>{Google LatLong}</name>
 </cluster>
 <cluster>
-<name>{Understanding Python decorators - Stack Overflow}</name>
-</cluster>
-</cluster>
-<cluster>
-<name>30</name>
-<cluster>
-<name>{google map and north atlantic treaty organisation}</name>
+<name>{Internet Search Techniques}</name>
 </cluster>
 <cluster>
-<name>{google maps}</name>
-</cluster>
+<name>{Google Labs - Explore Google's New Ideas}</name>
 </cluster>
 </cluster>
 <cluster>
 <name>25</name>
 <cluster>
-<name>{Think Stats}</name>
+<name>{How to Learn a Foreign Language Without Spending a Cent}</name>
 </cluster>
 <cluster>
-<name>{Web Color Chart - Hexadecimal - by VisiBone}</name>
+<name>{Machine Learning}</name>
+</cluster>
 </cluster>
 <cluster>
-<name>37</name>
-<cluster>
-<name>{how to use midi with the ied05       - YouTube}</name>
+<name>{Anonymous Internet | Anonymous VPN Service | VPN Solutions}</name>
 </cluster>
 <cluster>
-<name>{Scott Chacon on the Interwebs}</name>
+<name>27</name>
+<cluster>
+<name>{The Innovative Educator: 100 Video Sites Every Educator Should Bookmark}</name>
 </cluster>
 <cluster>
-<name>40</name>
+<name>{Online Video Lectures and Course Materials — Open Yale Courses}</name>
+</cluster>
+<cluster>
+<name>{The Edupunks' Guide: How to Do Research Online - Education - GOOD}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>10</name>
 <cluster>
 <name>{Who Will Win the Web Browser Battle: Google Chrome Vs FireFox}</name>
 </cluster>
 <cluster>
-<name>{6 Useful & Creative Jquery Plugins For August 2011}</name>
+<name>{  Android Application Development by Cyberlinks blog}</name>
 </cluster>
+<cluster>
+<name>{45 Examples of Websites Designed with HTML5 - DesignModo}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>2</name>
+<cluster>
+<name>40</name>
+<cluster>
+<name>{12 Best Tutorials To Help You Create Your Own iPhone App}</name>
+</cluster>
+<cluster>
+<name>{First iPhone 5 Buyer Already In Line For New iDevice -- AppAdvice}</name>
+</cluster>
+<cluster>
+<name>{50 Best Cydia Apps To Kill Your Boredom |}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>41</name>
+<cluster>
+<name>{The 50 Best Websites of 2011 - TIME}</name>
+</cluster>
+<cluster>
+<name>{10 Internet Technologies Educators Should Be Informed About – 2011 Update | Emerging Education Technology}</name>
+</cluster>
+<cluster>
+<name>{Twitter study casts doubts on ministers' post-riots plan | UK news | The Guardian}</name>
+</cluster>
+<cluster>
+<name>{Free download  Usb Drum Tools Software Download  software on  FreewareGroup.Com}</name>
+</cluster>
+<cluster>
+<name>{Bookmarks}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>42</name>
+<cluster>
+<name>53</name>
+<cluster>
+<name>{how to use midi with the ied05       - YouTube}</name>
+</cluster>
+<cluster>
+<name>{EUR and GBP transfer - TransferWise}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>54</name>
+<cluster>
+<name>{6 Useful and Creative Jquery Plugins For August 2011}</name>
+</cluster>
+<cluster>
+<name>{10 interesting jQuery plugins (august 2011) – Script Tutorials}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>{Just some other awesome CSS3 buttons  –  Red Team Design}</name>
+</cluster>
+<cluster>
+<name>56</name>
+<cluster>
+<name>{Mobile development with HTML5 | Engine Yard Ruby on Rails Blog}</name>
+</cluster>
+<cluster>
+<name>{No Server Required - Jekyll and Amazon S3 - All Things Distributed}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>57</name>
+<cluster>
+<name>{22 Very Detailed jQuery Animation Tutorials For Creative Designers | WebTabLab.com}</name>
+</cluster>
+<cluster>
+<name>{15 Creative Jquery Powered Sites For Inspiration}</name>
+</cluster>
+<cluster>
+<name>{The 10+ Useful jQuery Google Map Plugins  | ZoomZum}</name>
+</cluster>
+<cluster>
+<name>{A List of 25 Great Websites to Learn AJAX | blueblots.com}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>43</name>
+<cluster>
+<name>{Twitter using Drupal | Dries Buytaert}</name>
+</cluster>
+<cluster>
+<name>69</name>
+<cluster>
+<name>{Script Junkie | Building Mobile JavaScript WebApps With Backbone.js and jQuery: Part I}</name>
+</cluster>
+<cluster>
+<name>{How to get C like performance in Java - Java Code Geeks}</name>
+</cluster>
+<cluster>
+<name>{High Scalability - High Scalability - What Google App Engine Price Changes Say About the Future of Web Architecture}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>70</name>
+<cluster>
+<name>{21 top tools for responsive web design | Feature | .net magazine}</name>
+</cluster>
+<cluster>
+<name>{The Mistakes We Don’t Bother in Web Designing}</name>
+</cluster>
+<cluster>
+<name>{10 online tools to simplify HTML5 coding  |  CatsWhoCode.com}</name>
+</cluster>
+<cluster>
+<name>{10 Must Have JavaScript Tools For Developers}</name>
+</cluster>
+<cluster>
+<name>{10 Exceptional Tools For Website Testing}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>71</name>
+<cluster>
+<name>{Absolutely Delicious Tools Collection}</name>
+</cluster>
+<cluster>
+<name>{Japan Culture Lab - Sushi       - YouTube}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>{Windows 8: the developer's view – apps, Metro and the future | Technology | guardian.co.uk}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>44</name>
+<cluster>
+<name>{How Online Colleges Work » Online Colleges}</name>
+</cluster>
+<cluster>
+<name>{10 Ways to Effectively Learn Foreign Languages Online | Technically Digital}</name>
+</cluster>
+<cluster>
+<name>{Top 100 little-known sites Everyone should know about  | The Best Article Every day}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>3</name>
+<cluster>
+<name>86</name>
+<cluster>
+<name>{BBC News - Map of Scotland's urban green space is world first}</name>
+</cluster>
+<cluster>
+<name>{What insightful and thought-provoking websites have you across throughout the years? Here are mine. : AskReddit}</name>
+</cluster>
+<cluster>
+<name>{Google Maps For Android Now Lets You Download Maps For Offline Viewing (Hallelujah!) | TechCrunch}</name>
+</cluster>
+<cluster>
+<name>{MongoDB, OpenStreetMap and a Little Demo}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>87</name>
+<cluster>
+<name>{}</name>
+</cluster>
+<cluster>
+<name>{Scripting Languages: PHP, Perl, Python, Ruby - Hyperpolyglot}</name>
+</cluster>
+<cluster>
+<name>{cryptico.js - An easy-to-use encryption system utilizing RSA and AES for javascript.}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>88</name>
+<cluster>
+<name>{Scott Chacon on the Interwebs}</name>
+</cluster>
+<cluster>
+<name>{6 Awesome Chrome Web Apps Worth Checking Out}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>89</name>
+<cluster>
+<name>{Delicious.com - Discover Yourself!}</name>
+</cluster>
+<cluster>
+<name>{Interest rates in the UK since 1694. Download the data and see it visualised | Business | guardian.co.uk}</name>
+</cluster>
+<cluster>
+<name>{TuneChecker - Compare cheap CDs, MP3 singles and album downloads}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>{Alcohol Doesn't Kill Brain Cells, Just Memories: Gothamist}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>4</name>
+<cluster>
+<name>{30 Must Have Free PSD UI Kits For Web Design}</name>
+</cluster>
+<cluster>
+<name>{Interfaces in JavaScript | 500 Words}</name>
+</cluster>
+<cluster>
+<name>{Gorgeous Beautiful Seamless Patterns Perfect for Web Design}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>5</name>
+<cluster>
+<name>106</name>
+<cluster>
+<name>{Imperfect C++}</name>
+</cluster>
+<cluster>
+<name>{Linear algebra for game developers ~ part 1 - Wolfire Games Blog}</name>
+</cluster>
+<cluster>
+<name>{Understanding Python decorators - Stack Overflow}</name>
+</cluster>
+<cluster>
+<name>114</name>
+<cluster>
+<name>{grinding.be   » artificial intelligence}</name>
+</cluster>
+<cluster>
+<name>{Review: Microsoft N Layer App Sample, Part V–Cross Cutting is a fine line -  Ayende @ Rahien}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>115</name>
+<cluster>
+<name>{polls - What is the best comment in source code you have ever encountered? - Stack Overflow}</name>
+</cluster>
+<cluster>
+<name>{Esc and Ctrl: Jon Ronson's new series about controlling the internet - video | Comment is free | guardian.co.uk}</name>
+</cluster>
+</cluster>
+</cluster>
+<cluster>
+<name>{Video: Tuning Your Grails Applications | SpringSource.org}</name>
+</cluster>
+<cluster>
+<name>108</name>
+<cluster>
+<name>{Important Tips And Considerations When Choosing a Web Hosting Company | WebTabLab.com}</name>
+</cluster>
+<cluster>
+<name>{How To Build A Better Web Application For Your Business - Smashing Magazine}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>109</name>
+<cluster>
+<name>{High fliers: 5 great paper airplane designs | Games Blog - Yahoo! Games}</name>
+</cluster>
+<cluster>
+<name>{Paper: Apache Hadoop Goes Realtime at Facebook • myNoSQL}</name>
+</cluster>
+</cluster>
+<cluster>
+<name>110</name>
+<cluster>
+<name>{Boot up: An iOS developer on Android, a critical take on Anonymous, and more | Technology | guardian.co.uk}</name>
+</cluster>
+<cluster>
+<name>{Random Walk to Graphene (Nobel Lecture) - Geim - 2011 - Angewandte Chemie International Edition - Wiley Online Library}</name>
 </cluster>
 </cluster>
 </cluster>

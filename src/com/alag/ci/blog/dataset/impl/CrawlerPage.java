@@ -4,6 +4,7 @@
  */
 package com.alag.ci.blog.dataset.impl;
 
+import com.alag.ci.TextFile;
 import com.alag.ci.blog.search.RetrievedDataEntry;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,22 +31,11 @@ public class CrawlerPage implements RetrievedDataEntry {
         this.dirName = dirName;
         this.fileName = fileName;
         
-        try{
-            StringBuilder theTextBuilder = new StringBuilder();
-            String fullTxtFileName = this.dirName + txtDir + this.fileName + txtExt;
-            BufferedReader in = new BufferedReader(new FileReader(fullTxtFileName));
-            String str;
-            while ((str = in.readLine()) != null) {
-                theTextBuilder.append(str);
-            }
-            in.close();
-            theText = theTextBuilder.toString();            
-        } catch(IOException exc) {
-            throw exc;           
-        } finally {
-            // clean up and close files
-        }
-        
+        StringBuilder theTextBuilder = new StringBuilder();
+        String fullTxtFileName = this.dirName + txtDir + this.fileName + txtExt;
+        theText = TextFile.getFileData(fullTxtFileName);            
+
+        // todo this should use a property file read
         try{
             String fullPropFileName = this.dirName + propDir + this.fileName + propExt;
             BufferedReader in = new BufferedReader(new FileReader(fullPropFileName));

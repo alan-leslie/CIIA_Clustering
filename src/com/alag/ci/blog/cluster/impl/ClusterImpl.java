@@ -42,6 +42,12 @@ public class ClusterImpl implements TextCluster {
         }
     }
 
+    public ClusterImpl(int clusterId,
+            List<TextDataItem> theItems) {
+        this.clusterId = idCounter++;
+        this.items = theItems;
+    }
+    
     @Override
     public void computeCenter() {
         if (this.items.isEmpty()) {

@@ -20,7 +20,7 @@ public class LinkMatrix {
     int[][] pointNeighborMatrix;
     int[][] pointLinkMatrix;
     private ObjectToIndexMapping<TextDataItem> objToIndexMapping;
-    private int TOP_N_TERMS = 20;
+    public static int TOP_N_TERMS = 20;
     
     
     public LinkMatrix(TextDataItem[] points, SimilarityMeasure pointSim, double th) {
