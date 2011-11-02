@@ -103,8 +103,12 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
             }
         }
         
-        System.out.println("no of tags is:" + Integer.toString(freqEstimator.noOfTags()));
-
+        System.out.println("No of tags is:" + Integer.toString(freqEstimator.noOfTags()));
+        System.out.println("Frequencies");
+//        freqEstimator.outputFrequencies();
+        System.out.println("");
+        freqEstimator.prune(20, 70);
+        
         for (RetrievedDataEntry thePage : theData) {
             String text = thePage.getText();
             TagMagnitudeVector tmv = textAnalyzer.createTagMagnitudeVector(text);
@@ -112,6 +116,7 @@ public class PageTextDataSetCreatorImpl implements DataSetCreator {
 
             result.add(getPageTextAnalysisDataItem((RetrievedDataEntry)thePage, tmv));
         }
+        
         return result;
     }
 
